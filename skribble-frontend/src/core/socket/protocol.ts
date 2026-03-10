@@ -14,3 +14,24 @@ export type ServerMessage =
 export type ClientMessage =
   | { type: "chat"; data: { text: string } }
   | { type: "select_word"; data: { word: string } }
+
+// Server message types
+export type Player = {
+  id: string
+  name: string
+  score: number
+}
+
+export type GameSnapshot = {
+  state: string
+  turnNumber: number
+  maxTurns: number
+  drawerID: string
+  phase: string
+  players: Player[]
+
+  maskedWord: string
+
+  selectionDeadline?: string
+  playDeadline?: string
+}
