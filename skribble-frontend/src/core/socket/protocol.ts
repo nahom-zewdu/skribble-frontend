@@ -15,7 +15,6 @@ export type ClientMessage =
   | { type: "chat"; data: { text: string } }
   | { type: "select_word"; data: { word: string } }
 
-// Server message types
 export type Player = {
   id: string
   name: string
@@ -24,15 +23,13 @@ export type Player = {
 
 export type GameSnapshot = {
   state: string
+  phase: string
   turnNumber: number
   maxTurns: number
   drawerID: string
-  phase: string
   players: Player[]
-
-  maskedWord: string
-
-  selectionDeadline?: string
+  maskedWord?: string
+  selectionChoices?: string[]
   playDeadline?: string
 }
 
@@ -48,6 +45,7 @@ export type WordSelectionStarted = {
 }
 
 export type DrawingStarted = {
+  drawerID?: string
   word?: string
   maskedWord?: string
   deadline: string
