@@ -35,3 +35,42 @@ export type GameSnapshot = {
   selectionDeadline?: string
   playDeadline?: string
 }
+
+export type TurnStarted = {
+  turnNumber: number
+  drawerID: string
+}
+
+export type WordSelectionStarted = {
+  drawerID: string
+  choices: string[]
+  deadline: string
+}
+
+export type DrawingStarted = {
+  word?: string
+  maskedWord?: string
+  deadline: string
+}
+
+export type ChatMessage = {
+  sender: string
+  text: string
+}
+
+export type CorrectGuess = {
+  playerID: string
+  score: number
+}
+
+export type TurnEnded = {
+  turnNumber: number
+  word: string
+  players: Player[]
+  nextTurnStartTime: string
+}
+
+export type GameEnded = {
+  players: Player[]
+  restartTime: string
+}
