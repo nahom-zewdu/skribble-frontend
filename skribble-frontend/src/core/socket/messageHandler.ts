@@ -13,9 +13,12 @@ export function initMessageHandler() {
       case "game_snapshot":
         store.setState({
           state: msg.data.state,
+          phase: msg.data.phase,
           players: msg.data.players,
           maskedWord: msg.data.maskedWord,
           turnNumber: msg.data.turnNumber,
+          selectionChoices: msg.data.selectionChoices,
+          playDeadline: msg.data.playDeadline,
         })
         break
 
@@ -28,35 +31,81 @@ export function initMessageHandler() {
 
       case "word_selection_started":
         store.setState({
+          drawerID: msg.data.drawerID,
           selectionChoices: msg.data.choices,
         })
         break
 
       case "drawing_started":
-        store.setState({
-          word: msg.data.word,
-          maskedWord: msg.data.maskedWord,
-        })
+        // Drawer sees the actual word
+        if (msg.data.word) {
+          store.setState({
+            word: msg.data.word,
+            maskedWord: msg.data.word,
+            drawerID: msg.data.drawerID,
+            playDeadline: msg.data.deadline,
+          })
+        } else {
+          // Guessers see masked word only
+          store.setState({
+            maskedWord: msg.data.maskedWord,
+            playDeadline: msg.data.deadline,
+          })
+        }
         break
 
       case "chat":
         store.setState({
           messages: [
             ...store.messages,
-            {
-              sender: msg.data.sender,
-              text: msg.data.text,
-            },
+            { sender: msg.data.sender, text: msg.data.text },
           ],
         })
         break
 
       case "correct_guess":
+        // Update score for player
+        const playerIndex = store.players.findIndex(
+          (p) => p.id === msg.data.playerID
+        )
+        if (playerIndex !== -1) {
+          const updatedPlayers = [...store.players]
+          updatedPlayers[playerIndex] = {
+            ...updatedPlayers[playerIndex],
+            score: msg.data.score,
+          }
+          store.setState({ players: updatedPlayers })
+        }
         break
 
       case "turn_ended":
         store.setState({
           players: msg.data.players,
+          word: undefined,
+          maskedWord: undefined,
+          selectionChoices: [],
+          drawerID: undefined,
+        })
+        break
+
+      case "game_ended":
+        store.setState({
+          players: msg.data.players,
+          state: "ended",
+          drawerID: undefined,
+          turnNumber: 0,
+          word: undefined,
+          maskedWord: undefined,
+          selectionChoices: [],
+        })
+        break
+
+      case "system":
+        store.setState({
+          messages: [
+            ...store.messages,
+            { sender: "system", text: msg.data.text },
+          ],
         })
         break
     }
