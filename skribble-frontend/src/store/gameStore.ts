@@ -4,7 +4,7 @@
 import { create } from "zustand"
 import type { Player } from "../core/socket/protocol"
 
-type GameState = {
+export type GameState = {
   state: string
   phase: string
 
@@ -17,6 +17,8 @@ type GameState = {
   maskedWord?: string
 
   selectionChoices?: string[]
+
+  playDeadline?: string
 
   messages: { sender: string; text: string }[]
 
