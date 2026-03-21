@@ -79,11 +79,13 @@ export function initMessageHandler() {
         store.setState({
           players: msg.data.players,
           state: "ended",
+          phase: "game_end",
           drawerID: undefined,
           turnNumber: 0,
           word: undefined,
           maskedWord: undefined,
           selectionChoices: [],
+          restartTime: msg.data.restartTime,
         })
         break
 
