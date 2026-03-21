@@ -19,7 +19,7 @@ export default function GamePage() {
   const drawerID = useGameStore((s) => s.drawerID)
   const players = useGameStore((s) => s.players)
 
-  const selfID = socket.clientID()
+  const selfID = useGameStore((s) => s.selfID)
 
   const isDrawer = selfID && drawerID === selfID
 
