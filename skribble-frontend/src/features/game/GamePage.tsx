@@ -21,10 +21,6 @@ export default function GamePage() {
 
   const selfID = socket.clientID()
 
-  useEffect(() => {
-    initMessageHandler()
-  }, [])
-
   const isDrawer = selfID && drawerID === selfID
 
   return (
