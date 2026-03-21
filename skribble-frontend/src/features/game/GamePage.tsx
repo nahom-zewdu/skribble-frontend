@@ -14,6 +14,7 @@ export default function GamePage() {
   const phase = useGameStore((s) => s.phase)
   const drawerID = useGameStore((s) => s.drawerID)
   const players = useGameStore((s) => s.players)
+  const turnNumber = useGameStore((s) => s.turnNumber)
 
   const selfID = useGameStore((s) => s.selfID)
 
@@ -30,7 +31,7 @@ export default function GamePage() {
 
         <Timer />
 
-        {phase === "word_selection" && isDrawer && <WordSelector />}
+        {phase === "word_selection" && isDrawer && (<WordSelector key={turnNumber} />)}
 
         <CanvasBoard />
 
