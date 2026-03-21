@@ -1,34 +1,82 @@
-// src/features/game/WordSelector.tsx
-// This file defines the WordSelector component for the Skribble frontend application.
-// The WordSelector is displayed to the drawer during the word selection phase, allowing them to choose a word from a list of options provided by the server.
-// When a word is selected, it sends a message to the server indicating the chosen word.
+// src/features/game/ChatBox.tsx
+// This file defines the ChatBox component for the Skribble frontend application.
+// The ChatBox allows players to send chat messages and guesses during the game.
+// It displays a list of messages received from the server and provides an input field for sending new messages.
 
+import { useEffect, useRef, useState } from "react"
 import { useGameStore } from "../../store/gameStore"
 import { socket } from "../../core/socket/websocket"
 
-export default function WordSelector() {
-  const choices = useGameStore((s) => s.selectionChoices)
+export default function ChatBox() {
+  const messages = useGameStore((s) => s.messages)
+  const [input, setInput] = useState("")
 
-  if (!choices || choices.length === 0) return null
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  function selectWord(word: string) {
+  function send() {
+    if (!input.trim()) return
+
     socket.send({
-      type: "select_word",
-      data: { word },
+      type: "chat",
+      data: { text: input },
     })
+
+    setInput("")
   }
 
+  // ✅ Auto-scroll on new message
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    el.scrollTop = el.scrollHeight
+  }, [messages])
+
   return (
-    <div className="flex gap-4 mb-4">
-      {choices.map((word) => (
+    <div className="flex flex-col h-full">
+
+      {/* Messages */}
+      <div
+        ref={containerRef}
+        className="flex-1 overflow-y-auto p-2 space-y-1"
+      >
+        {messages.map((m) => {
+          if (m.type === "system") {
+            return (
+              <div
+                key={m.id}
+                className="text-xs text-gray-500 italic text-center"
+              >
+                {m.text}
+              </div>
+            )
+          }
+
+          return (
+            <div key={m.id}>
+              <span className="font-semibold">{m.sender}:</span>{" "}
+              {m.text}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Input */}
+      <div className="flex border-t">
+        <input
+          className="flex-1 p-2 outline-none"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && send()}
+          placeholder="Type a guess..."
+        />
         <button
-          key={word}
-          onClick={() => selectWord(word)}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
+          onClick={send}
+          className="px-4 bg-blue-500 text-white"
         >
-          {word}
+          Send
         </button>
-      ))}
+      </div>
     </div>
   )
 }
