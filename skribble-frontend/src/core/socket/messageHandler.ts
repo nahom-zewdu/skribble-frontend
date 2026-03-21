@@ -14,6 +14,7 @@ export function initMessageHandler() {
         store.setState({
           state: msg.data.state,
           phase: msg.data.phase,
+          selfID: msg.data.selfID,
           players: msg.data.players,
           maskedWord: msg.data.maskedWord,
           turnNumber: msg.data.turnNumber,
