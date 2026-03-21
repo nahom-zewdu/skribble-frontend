@@ -1,27 +1,53 @@
 // src/features/game/GamePage.tsx
 // This file defines the GamePage component for the Skribble frontend application.
-// The GamePage displays the game canvas and a sidebar with player information.
-// It uses the Zustand game store to access the current game state and player list, and renders them accordingly.
+// The GamePage is the main interface for the game, displaying the canvas, chat, player list, and other relevant information based on the current game phase.
+// It initializes the message handler to listen for updates from the server and renders different components based on whether the user is the drawer or a guesser.
+import { useEffect } from "react"
+import { socket } from "../../core/socket/websocket"
+import { initMessageHandler } from "../../core/socket/messageHandler"
+
 import { useGameStore } from "../../store/gameStore"
 
+import CanvasBoard from "./CanvasBoard"
+import ChatBox from "./ChatBox"
+import PlayerList from "./PlayerList"
+import WordSelector from "./WordSelector"
+import Timer from "./Timer"
+
 export default function GamePage() {
+  const phase = useGameStore((s) => s.phase)
+  const drawerID = useGameStore((s) => s.drawerID)
   const players = useGameStore((s) => s.players)
 
+  const selfID = socket.clientID()
+
+  useEffect(() => {
+    initMessageHandler()
+  }, [])
+
+  const isDrawer = selfID && drawerID === selfID
+
   return (
-    <div className="grid grid-cols-4 h-screen">
-      <div className="col-span-3 bg-gray-200">
-        Canvas here
-      </div>
+    <div className="game-layout">
 
-      <div className="border-l p-4">
-        <h2>Players</h2>
+      <aside className="left-panel">
+        <PlayerList players={players} />
+      </aside>
 
-        {players.map((p) => (
-          <div key={p.id}>
-            {p.name} — {p.score}
-          </div>
-        ))}
-      </div>
+      <main className="center-panel">
+
+        <Timer />
+
+        {phase === "word_selection" && isDrawer && <WordSelector />}
+
+        <CanvasBoard />
+
+      </main>
+
+      <aside className="right-panel">
+        <ChatBox />
+      </aside>
+
     </div>
   )
 }
