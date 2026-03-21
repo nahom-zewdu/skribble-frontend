@@ -1,82 +1,60 @@
-// src/features/game/ChatBox.tsx
-// This file defines the ChatBox component for the Skribble frontend application.
-// The ChatBox allows players to send chat messages and guesses during the game.
-// It displays a list of messages received from the server and provides an input field for sending new messages.
+// src/features/game/WordSelector.tsx
+// This file defines the WordSelector component for the Skribble frontend application.
+// The WordSelector is displayed to the drawer during the word selection phase, allowing them to choose a word from a list of options provided by the server.
+// It checks if the selection deadline has passed and prevents multiple selections. When a word is selected, it sends a message to the server with the chosen word.
 
-import { useEffect, useRef, useState } from "react"
+import { useState, useMemo } from "react"
 import { useGameStore } from "../../store/gameStore"
 import { socket } from "../../core/socket/websocket"
 
-export default function ChatBox() {
-  const messages = useGameStore((s) => s.messages)
-  const [input, setInput] = useState("")
+function isExpired(deadline?: string) {
+  if (!deadline) return true
+  return new Date(deadline).getTime() < Date.now()
+}
 
-  const containerRef = useRef<HTMLDivElement>(null)
+export default function WordSelector() {
+  const choices = useGameStore((s) => s.selectionChoices)
+  const deadline = useGameStore((s) => s.selectionDeadline)
 
-  function send() {
-    if (!input.trim()) return
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const expired = useMemo(() => isExpired(deadline), [deadline])
+
+  function select(word: string) {
+    if (selected) return // prevent double click
+    if (expired) return
+
+    setSelected(word)
 
     socket.send({
-      type: "chat",
-      data: { text: input },
+      type: "select_word",
+      data: { word },
     })
-
-    setInput("")
   }
 
-  // ✅ Auto-scroll on new message
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-
-    el.scrollTop = el.scrollHeight
-  }, [messages])
+  if (!choices || choices.length === 0) return null
+  if (expired) return null
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex gap-4 mb-4">
+      {choices.map((word) => {
+        const isChosen = selected === word
 
-      {/* Messages */}
-      <div
-        ref={containerRef}
-        className="flex-1 overflow-y-auto p-2 space-y-1"
-      >
-        {messages.map((m) => {
-          if (m.type === "system") {
-            return (
-              <div
-                key={m.id}
-                className="text-xs text-gray-500 italic text-center"
-              >
-                {m.text}
-              </div>
-            )
-          }
-
-          return (
-            <div key={m.id}>
-              <span className="font-semibold">{m.sender}:</span>{" "}
-              {m.text}
-            </div>
-          )
-        })}
-      </div>
-
-      {/* Input */}
-      <div className="flex border-t">
-        <input
-          className="flex-1 p-2 outline-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && send()}
-          placeholder="Type a guess..."
-        />
-        <button
-          onClick={send}
-          className="px-4 bg-blue-500 text-white"
-        >
-          Send
-        </button>
-      </div>
+        return (
+          <button
+            key={word}
+            onClick={() => select(word)}
+            disabled={!!selected}
+            className={`
+              px-4 py-2 border rounded
+              ${isChosen ? "bg-green-500 text-white" : "bg-white"}
+              ${selected ? "opacity-50 cursor-not-allowed" : ""}
+            `}
+          >
+            {word}
+          </button>
+        )
+      })}
     </div>
   )
 }
