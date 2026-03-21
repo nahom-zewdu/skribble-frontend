@@ -96,7 +96,7 @@ export function initMessageHandler() {
           selectionChoices: [],
         })
         break
-        
+
       case "chat":
         store.setState({
           messages: [
