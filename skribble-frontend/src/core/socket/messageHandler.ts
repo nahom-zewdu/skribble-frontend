@@ -65,11 +65,13 @@ export function initMessageHandler() {
 
       case "turn_ended":
         store.setState({
+          phase: "turn_end",
           players: msg.data.players,
           word: undefined,
           maskedWord: undefined,
           selectionChoices: [],
           drawerID: undefined,
+          nextTurnStartTime: msg.data.nextTurnStartTime,
         })
         break
 
