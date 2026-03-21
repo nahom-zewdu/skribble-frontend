@@ -4,6 +4,13 @@
 import { create } from "zustand"
 import type { Player } from "../core/socket/protocol"
 
+type Message = {
+  id: string
+  sender?: string
+  text: string
+  type: "chat" | "system"
+}
+
 type GameState = {
   state: string
   phase: string
@@ -24,7 +31,7 @@ type GameState = {
   transitionDeadline?: string
   restartDeadline?: string
 
-  messages: { sender: string; text: string }[]
+  messages: Message[]
 
   setState: (data: Partial<GameState>) => void
 }
