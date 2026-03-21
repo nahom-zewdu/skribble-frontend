@@ -7,6 +7,7 @@ import type { Player } from "../core/socket/protocol"
 type GameState = {
   state: string
   phase: string
+  selfID?: string
 
   players: Player[]
 
