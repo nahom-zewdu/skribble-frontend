@@ -25,6 +25,7 @@ export type GameSnapshot = {
   state: string
   turnNumber: number
   maxTurns: number
+  selfID?: string
   drawerID: string
   phase: string
   players: Player[]
