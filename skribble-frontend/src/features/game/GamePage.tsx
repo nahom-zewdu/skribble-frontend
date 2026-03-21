@@ -2,10 +2,6 @@
 // This file defines the GamePage component for the Skribble frontend application.
 // The GamePage is the main interface for the game, displaying the canvas, chat, player list, and other relevant information based on the current game phase.
 // It initializes the message handler to listen for updates from the server and renders different components based on whether the user is the drawer or a guesser.
-import { useEffect } from "react"
-import { socket } from "../../core/socket/websocket"
-import { initMessageHandler } from "../../core/socket/messageHandler"
-
 import { useGameStore } from "../../store/gameStore"
 
 import CanvasBoard from "./CanvasBoard"
