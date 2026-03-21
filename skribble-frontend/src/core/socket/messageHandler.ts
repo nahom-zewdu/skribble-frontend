@@ -33,31 +33,22 @@ export function initMessageHandler() {
       case "word_selection_started":
         store.setState({
           drawerID: msg.data.drawerID,
+          phase: "word_selection",
           selectionChoices: msg.data.choices,
           selectionDeadline: msg.data.deadline,
         })
         break
 
       case "drawing_started":
-        // Drawer sees the actual word
-        if (msg.data.word) {
-          store.setState({
-            word: msg.data.word,
-            maskedWord: msg.data.word,
-            drawerID: msg.data.drawerID,
-            playDeadline: msg.data.deadline,
-            selectionChoices: undefined,
-          })
-        } else {
-          // Guessers see masked word only
-          store.setState({
-            maskedWord: msg.data.maskedWord,
-            playDeadline: msg.data.deadline,
-          })
-        }
+        store.setState({
+          phase: "drawing",
+          word: msg.data.word,
+          maskedWord: msg.data.maskedWord,
+          playDeadline: msg.data.deadline,
+        })
         break
         
-        case "correct_guess":
+      case "correct_guess":
         // Update score for player
         const playerIndex = store.players.findIndex(
           (p) => p.id === msg.data.playerID
