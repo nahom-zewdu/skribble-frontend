@@ -59,17 +59,8 @@ export function initMessageHandler() {
           })
         }
         break
-
-      case "chat":
-        store.setState({
-          messages: [
-            ...store.messages,
-            { sender: msg.data.sender, text: msg.data.text },
-          ],
-        })
-        break
-
-      case "correct_guess":
+        
+        case "correct_guess":
         // Update score for player
         const playerIndex = store.players.findIndex(
           (p) => p.id === msg.data.playerID
@@ -105,12 +96,30 @@ export function initMessageHandler() {
           selectionChoices: [],
         })
         break
+        
+      case "chat":
+        store.setState({
+          messages: [
+            ...store.messages,
+            {
+              id: crypto.randomUUID(),
+              sender: msg.data.sender,
+              text: msg.data.text,
+              type: "chat",
+            },
+          ],
+        })
+        break
 
       case "system":
         store.setState({
           messages: [
             ...store.messages,
-            { sender: "system", text: msg.data.text },
+            {
+              id: crypto.randomUUID(),
+              text: msg.data.text,
+              type: "system",
+            },
           ],
         })
         break
