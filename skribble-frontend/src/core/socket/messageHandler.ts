@@ -17,8 +17,11 @@ export function initMessageHandler() {
           players: msg.data.players,
           maskedWord: msg.data.maskedWord,
           turnNumber: msg.data.turnNumber,
-          selectionChoices: msg.data.selectionChoices,
+          drawerID: msg.data.drawerID,
+          selectionDeadline: msg.data.selectionDeadline,
           playDeadline: msg.data.playDeadline,
+          transitionDeadline: msg.data.transitionDeadline,
+          restartDeadline: msg.data.restartDeadline,
         })
         break
 
@@ -33,6 +36,7 @@ export function initMessageHandler() {
         store.setState({
           drawerID: msg.data.drawerID,
           selectionChoices: msg.data.choices,
+          selectionDeadline: msg.data.deadline,
         })
         break
 
@@ -44,6 +48,7 @@ export function initMessageHandler() {
             maskedWord: msg.data.word,
             drawerID: msg.data.drawerID,
             playDeadline: msg.data.deadline,
+            selectionChoices: undefined,
           })
         } else {
           // Guessers see masked word only
