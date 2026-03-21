@@ -30,6 +30,8 @@ type GameState = {
   playDeadline?: string
   transitionDeadline?: string
   restartDeadline?: string
+  nextTurnStartTime?: string
+  restartTime?: string
 
   messages: Message[]
 
