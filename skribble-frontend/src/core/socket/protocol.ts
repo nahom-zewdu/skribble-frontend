@@ -23,14 +23,18 @@ export type Player = {
 
 export type GameSnapshot = {
   state: string
-  phase: string
   turnNumber: number
   maxTurns: number
   drawerID: string
+  phase: string
   players: Player[]
-  maskedWord?: string
-  selectionChoices?: string[]
+
+  maskedWord: string
+
+  selectionDeadline?: string
   playDeadline?: string
+  transitionDeadline?: string
+  restartDeadline?: string
 }
 
 export type TurnStarted = {
