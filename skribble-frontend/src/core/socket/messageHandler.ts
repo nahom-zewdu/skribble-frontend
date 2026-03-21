@@ -13,16 +13,13 @@ export function initMessageHandler() {
       case "game_snapshot":
         store.setState({
           state: msg.data.state,
-          phase: msg.data.phase,
-          selfID: msg.data.selfID,
           players: msg.data.players,
           maskedWord: msg.data.maskedWord,
           turnNumber: msg.data.turnNumber,
-          drawerID: msg.data.drawerID,
+          phase: msg.data.phase,
+
           selectionDeadline: msg.data.selectionDeadline,
           playDeadline: msg.data.playDeadline,
-          transitionDeadline: msg.data.transitionDeadline,
-          restartDeadline: msg.data.restartDeadline,
         })
         break
 
