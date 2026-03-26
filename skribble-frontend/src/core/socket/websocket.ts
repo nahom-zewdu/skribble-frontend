@@ -17,10 +17,21 @@ class GameSocket {
     this.ws = new WebSocket(url)
 
     this.ws.onmessage = (event) => {
-      const msg: ServerMessage = JSON.parse(event.data)
+    const msg: ServerMessage = JSON.parse(event.data)
 
-      this.listeners.forEach((l) => l(msg))
+    // Drawing messages go separately
+    if (
+      msg.type === "draw_start" ||
+      msg.type === "draw_move" ||
+      msg.type === "draw_end" ||
+      msg.type === "clear_canvas"
+    ) {
+      this.drawListeners.forEach((l) => l(msg))
+      return
     }
+
+    this.listeners.forEach((l) => l(msg))
+  }
   }
 
   send(msg: ClientMessage) {
