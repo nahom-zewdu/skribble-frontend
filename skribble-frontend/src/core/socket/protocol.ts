@@ -14,6 +14,10 @@ export type ServerMessage =
 export type ClientMessage =
   | { type: "chat"; data: { text: string } }
   | { type: "select_word"; data: { word: string } }
+  | { type: "draw_start"; data: Point }
+  | { type: "draw_move"; data: { points: Point[] } }
+  | { type: "draw_end" }
+  | { type: "clear_canvas" }
 
 export type Point = {
   x: number
