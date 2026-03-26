@@ -13,11 +13,19 @@ export function initMessageHandler() {
       case "game_snapshot":
         store.setState({
           selfID: msg.data.selfID,
+
           state: msg.data.state,
-          players: msg.data.players,
-          maskedWord: msg.data.maskedWord,
-          turnNumber: msg.data.turnNumber,
           phase: msg.data.phase,
+
+          players: msg.data.players,
+
+          drawerID: msg.data.drawerID,
+          turnNumber: msg.data.turnNumber,
+
+          maskedWord: msg.data.maskedWord,
+
+          selectionChoices: [], // reset transient state
+          word: undefined,
 
           selectionDeadline: msg.data.selectionDeadline,
           playDeadline: msg.data.playDeadline,
