@@ -4,9 +4,11 @@
 import type { ClientMessage, ServerMessage } from "./protocol"
 
 type Listener = (msg: ServerMessage) => void
+type DrawListener = (msg: ServerMessage) => void
 
 class GameSocket {
   private ws?: WebSocket
+  private drawListeners: DrawListener[] = []
   private listeners: Listener[] = []
 
   connect(name: string, room: string) {
@@ -23,6 +25,10 @@ class GameSocket {
 
   send(msg: ClientMessage) {
     this.ws?.send(JSON.stringify(msg))
+  }
+
+  onDraw(listener: DrawListener) {
+    this.drawListeners.push(listener)
   }
 
   onMessage(listener: Listener) {
