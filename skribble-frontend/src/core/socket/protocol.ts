@@ -10,6 +10,10 @@ export type ServerMessage =
   | { type: "turn_ended"; data: TurnEnded }
   | { type: "game_ended"; data: GameEnded }
   | { type: "system"; data: { text: string } }
+  | { type: "draw_start"; data: Point }
+  | { type: "draw_move"; data: { points: Point[] } }
+  | { type: "draw_end" }
+  | { type: "clear_canvas" }
 
 export type ClientMessage =
   | { type: "chat"; data: { text: string } }
