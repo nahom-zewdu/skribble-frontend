@@ -4,8 +4,13 @@
 import { socket } from "./websocket"
 import { useGameStore } from "../../store/gameStore"
 import type { ServerMessage } from "./protocol"
+  
+let initialized = false
 
 export function initMessageHandler() {
+  if (initialized) return
+  initialized = true
+  
   socket.onMessage((msg: ServerMessage) => {
     const store = useGameStore.getState()
 
