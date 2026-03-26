@@ -12,6 +12,7 @@ export function initMessageHandler() {
     switch (msg.type) {
       case "game_snapshot":
         store.setState({
+          selfID: msg.data.selfID,
           state: msg.data.state,
           players: msg.data.players,
           maskedWord: msg.data.maskedWord,
