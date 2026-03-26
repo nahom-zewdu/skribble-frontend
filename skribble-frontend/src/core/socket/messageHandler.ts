@@ -7,6 +7,19 @@ import type { ServerMessage } from "./protocol"
   
 let initialized = false
 
+function mapPhase(phase: string): string {
+  switch (phase) {
+    case "selecting":
+      return "word_selection"
+    case "drawing":
+      return "drawing"
+    case "ended":
+      return "turn_end"
+    default:
+      return "waiting"
+  }
+}
+
 export function initMessageHandler() {
   if (initialized) return
   initialized = true
