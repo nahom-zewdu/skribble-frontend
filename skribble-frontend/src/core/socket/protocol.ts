@@ -15,6 +15,11 @@ export type ClientMessage =
   | { type: "chat"; data: { text: string } }
   | { type: "select_word"; data: { word: string } }
 
+export type Point = {
+  x: number
+  y: number
+}
+
 export type Player = {
   id: string
   name: string
