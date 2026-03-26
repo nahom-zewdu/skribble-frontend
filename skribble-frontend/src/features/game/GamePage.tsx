@@ -17,7 +17,6 @@ export default function GamePage() {
   const turnNumber = useGameStore((s) => s.turnNumber)
 
   const selfID = useGameStore((s) => s.selfID)
-
   const isDrawer = selfID && drawerID === selfID
 
   return (
