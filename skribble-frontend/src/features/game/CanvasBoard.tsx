@@ -17,7 +17,7 @@ export default function CanvasBoard() {
   const phase = useGameStore((s) => s.phase)
   const drawerID = useGameStore((s) => s.drawerID)
 
-  const selfID = socket.clientID()
+  const selfID = useGameStore((s) => s.selfID)
   const isDrawer = selfID && drawerID === selfID
 
   // -----------------------------
