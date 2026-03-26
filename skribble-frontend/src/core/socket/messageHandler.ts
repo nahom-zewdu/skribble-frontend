@@ -10,7 +10,7 @@ let initialized = false
 export function initMessageHandler() {
   if (initialized) return
   initialized = true
-  
+
   socket.onMessage((msg: ServerMessage) => {
     const store = useGameStore.getState()
 
@@ -20,7 +20,7 @@ export function initMessageHandler() {
           selfID: msg.data.selfID,
 
           state: msg.data.state,
-          phase: msg.data.phase,
+          phase: mapPhase(msg.data.phase),
 
           players: msg.data.players,
 
@@ -29,11 +29,13 @@ export function initMessageHandler() {
 
           maskedWord: msg.data.maskedWord,
 
-          selectionChoices: [], // reset transient state
+          selectionChoices: [],
           word: undefined,
 
           selectionDeadline: msg.data.selectionDeadline,
           playDeadline: msg.data.playDeadline,
+          transitionDeadline: msg.data.transitionDeadline,
+          restartDeadline: msg.data.restartDeadline,
         })
         break
 
