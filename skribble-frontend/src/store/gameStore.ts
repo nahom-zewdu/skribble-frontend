@@ -49,5 +49,6 @@ export const useGameStore = create<GameState>((set) => ({
     set((s) => ({
       ...s,
       ...data,
+      players: data.players ?? s.players ?? [],
     })),
 }))
