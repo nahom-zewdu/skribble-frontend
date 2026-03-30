@@ -87,7 +87,7 @@ export function initMessageHandler() {
           const updatedPlayers = [...store.players]
           updatedPlayers[playerIndex] = {
             ...updatedPlayers[playerIndex],
-            score: msg.data.score,
+            score: updatedPlayers[playerIndex].score + msg.data.score,
           }
           store.setState({ players: updatedPlayers })
         }
