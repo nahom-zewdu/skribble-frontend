@@ -150,11 +150,9 @@ export default function CanvasBoard() {
       }
     }
 
-    socket.onDraw(handleDraw)
+    const unsubscribe = socket.onDraw(handleDraw)
 
-    return () => {
-      // no unsubscribe implemented yet (acceptable for now)
-    }
+    return () => { unsubscribe() }
   }, [])
 
   return (
