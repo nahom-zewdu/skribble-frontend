@@ -18,7 +18,7 @@ export default function CanvasBoard() {
   const drawerID = useGameStore((s) => s.drawerID)
 
   const selfID = useGameStore((s) => s.selfID)
-  const isDrawer = selfID && drawerID === selfID
+  const isDrawer = drawerID === selfID
 
   // -----------------------------
   // Canvas setup
