@@ -12,6 +12,10 @@ type Props = {
 export default function PlayerList({ players }: Props) {
   const drawerID = useGameStore((s) => s.drawerID)
 
+  if (!players || players.length === 0) {
+    return <div className="p-4">No players</div>
+  }
+
   // Sort players by score (highest first)
   const sorted = [...players].sort((a, b) => b.score - a.score)
 
