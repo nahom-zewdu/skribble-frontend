@@ -35,7 +35,7 @@ export default function ChatBox() {
         {messages.map((m, i) => (
           <div key={i}>
             <span className="font-semibold">
-              {m.sender === "system" ? "[System]" : m.sender}:
+              {m.type === "system" ? "[System]" : m.sender}:
             </span>{" "}
             <span>{m.text}</span>
           </div>
