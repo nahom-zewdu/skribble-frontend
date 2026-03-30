@@ -6,6 +6,7 @@ import { useGameStore } from "../../store/gameStore"
 import type { ServerMessage } from "./protocol"
   
 let initialized = false
+let unsubscribe: (() => void) | null = null
 
 function mapPhase(phase: string): string {
   switch (phase) {
@@ -24,7 +25,7 @@ export function initMessageHandler() {
   if (initialized) return
   initialized = true
 
-  socket.onMessage((msg: ServerMessage) => {
+  unsubscribe = socket.onMessage((msg: ServerMessage) => {
     const store = useGameStore.getState()
 
     switch (msg.type) {
@@ -146,4 +147,10 @@ export function initMessageHandler() {
         break
     }
   })
+}
+
+
+export function cleanupMessageHandler() {
+  unsubscribe?.()
+  initialized = false
 }
