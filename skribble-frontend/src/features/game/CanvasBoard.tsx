@@ -98,7 +98,15 @@ export default function CanvasBoard() {
 
     drawingRef.current = false
 
-    socket.send({ type: "draw_end" })
+    const buffer = bufferRef.current
+    if (buffer.length > 1) {
+      socket.send({
+        type: "draw_move",
+        data: { points: buffer },
+      })
+    }
+
+    bufferRef.current = []
   }
 
   // -----------------------------
