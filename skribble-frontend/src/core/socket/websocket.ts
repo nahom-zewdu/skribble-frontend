@@ -15,6 +15,10 @@ class GameSocket {
     const url = `ws://localhost:8080/ws?name=${name}&room=${room}`
     this.ws = new WebSocket(url)
 
+    this.ws.onclose = () => {
+      console.warn("WebSocket closed")
+    }
+
     this.ws.onmessage = (event) => {
       const msg: ServerMessage = JSON.parse(event.data)
 
