@@ -15,7 +15,6 @@ export default function JoinPage() {
   function join() {
     initMessageHandler()
     socket.connect(name, room)
-    initMessageHandler()
     navigate("/game")
   }
 
