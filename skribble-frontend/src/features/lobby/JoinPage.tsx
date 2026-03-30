@@ -13,6 +13,7 @@ export default function JoinPage() {
   const navigate = useNavigate()
 
   function join() {
+    initMessageHandler()
     socket.connect(name, room)
     initMessageHandler()
     navigate("/game")
