@@ -19,6 +19,10 @@ class GameSocket {
       console.warn("WebSocket closed")
     }
 
+    this.ws.onerror = (err) => {
+      console.error("WebSocket error", err)
+    }
+
     this.ws.onmessage = (event) => {
       const msg: ServerMessage = JSON.parse(event.data)
 
