@@ -23,7 +23,7 @@ export default function GamePage() {
     <div className="game-layout">
 
       <aside className="left-panel">
-        <PlayerList players={players} />
+        <PlayerList players={players ?? []} />
       </aside>
 
       <main className="center-panel">
