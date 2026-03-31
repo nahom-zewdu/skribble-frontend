@@ -175,6 +175,7 @@ export default function CanvasBoard() {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
+      style={{ width: "800px", height: "500px", border: "1px solid red" }}
     />
   )
 }
