@@ -42,8 +42,7 @@ export function initMessageHandler() {
           turnNumber: msg.data.turnNumber,
 
           maskedWord: msg.data.maskedWord,
-
-          selectionChoices: [],
+          
           word: undefined,
 
           selectionDeadline: msg.data.selectionDeadline,
