@@ -39,8 +39,8 @@ export default function CanvasBoard() {
 
     ctx.lineCap = "round"
     ctx.lineJoin = "round"
-    ctx.lineWidth = 4
-    ctx.strokeStyle = "#000"
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "#111"
 
     ctxRef.current = ctx
   }, [])
