@@ -36,9 +36,9 @@ export function initMessageHandler() {
           state: msg.data.state,
           phase: mapPhase(msg.data.phase),
 
-          players: msg.data.players,
-
-          drawerID: msg.data.drawerID,
+          players: msg.data.players ?? store.players,
+        
+          drawerID: msg.data.drawerID || store.drawerID,
           turnNumber: msg.data.turnNumber,
 
           maskedWord: msg.data.maskedWord,
