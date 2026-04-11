@@ -20,26 +20,49 @@ export default function GamePage() {
   const isDrawer = drawerID === selfID
 
   return (
-    <div className="game-layout">
+    <div className="h-screen flex flex-col bg-slate-900 text-white">
 
-      <aside className="left-panel">
-        <PlayerList players={players ?? []} />
-      </aside>
+      {/* 🔝 TOP BAR */}
+      <div className="h-16 flex items-center justify-between px-6 bg-slate-800 border-b border-slate-700">
 
-      <main className="center-panel">
+        <div className="text-lg font-bold">
+          Turn #{turnNumber}
+        </div>
 
         <Timer />
 
-        {phase === "word_selection" && isDrawer && (<WordSelector key={turnNumber} />)}
+        <div className="font-mono tracking-widest text-xl">
+          {/* masked word goes here */}
+        </div>
+      </div>
 
-        <CanvasBoard />
+      {/* 🔽 MAIN AREA */}
+      <div className="flex flex-1 overflow-hidden">
 
-      </main>
+        {/* LEFT */}
+        <aside className="w-64 bg-slate-800 border-r border-slate-700 overflow-y-auto">
+          <PlayerList players={players ?? []} />
+        </aside>
 
-      <aside className="right-panel">
-        <ChatBox />
-      </aside>
+        {/* CENTER */}
+        <main className="flex-1 flex flex-col items-center justify-center p-4">
 
+          {phase === "word_selection" && isDrawer && (
+            <WordSelector key={turnNumber} />
+          )}
+
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <CanvasBoard />
+          </div>
+
+        </main>
+
+        {/* RIGHT */}
+        <aside className="w-80 bg-slate-800 border-l border-slate-700">
+          <ChatBox />
+        </aside>
+
+      </div>
     </div>
   )
 }
