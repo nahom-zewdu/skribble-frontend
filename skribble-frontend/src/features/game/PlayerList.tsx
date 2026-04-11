@@ -21,28 +21,31 @@ export default function PlayerList({ players }: Props) {
 
   return (
     <div className="p-4">
-      <h2 className="font-bold mb-4">Players</h2>
+    <h2 className="font-bold mb-4 text-slate-300">Leaderboard</h2>
 
-      <div className="flex flex-col gap-2">
-        {sorted.map((p) => {
-          const isDrawer = p.id === drawerID
+    <div className="flex flex-col gap-2">
+      {sorted.map((p, i) => {
+        const isDrawer = p.id === drawerID
 
-          return (
-            <div
-              key={p.id}
-              className={`flex justify-between p-2 rounded 
-                ${isDrawer ? "bg-yellow-200" : "bg-gray-100"}`}
-            >
-              <span>
-                {p.name}
-                {isDrawer && " ✏️"}
-              </span>
-
-              <span className="font-mono">{p.score}</span>
+        return (
+          <div
+            key={p.id}
+            className={`
+              flex justify-between items-center p-3 rounded-lg transition-all
+              ${isDrawer ? "bg-yellow-400 text-black" : "bg-slate-700"}
+            `}
+          >
+            <div className="flex gap-2 items-center">
+              <span className="text-sm opacity-60">#{i + 1}</span>
+              <span>{p.name}</span>
+              {isDrawer && " ✏️"}
             </div>
-          )
-        })}
-      </div>
+
+            <span className="font-mono">{p.score}</span>
+          </div>
+        )
+      })}
     </div>
+  </div>
   )
 }
