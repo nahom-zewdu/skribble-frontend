@@ -32,8 +32,14 @@ export default function WordSelector() {
     })
   }
 
-  if (!choices || choices.length === 0) return null
-  if (expired) return null
+  if (!choices || choices.length === 0){
+    console.log("No Choices Yet")
+    return null
+  }
+  if (expired) {
+    console.log("Expired")
+    return null
+  }
 
   return (
     <div className="flex gap-4 mb-4">
