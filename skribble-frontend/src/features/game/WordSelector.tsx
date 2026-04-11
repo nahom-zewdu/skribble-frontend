@@ -42,26 +42,22 @@ export default function WordSelector() {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white p-6 rounded shadow-lg flex gap-4">
-        {choices.map((word) => {
-          const isChosen = selected === word
+    <div className="fixed inset-0 flex items-center justify-center bg-black/70 z-50 backdrop-blur-sm">
+      <div className="bg-slate-800 text-white p-8 rounded-xl shadow-xl flex gap-6">
 
-          return (
-            <button
-              key={word}
-              onClick={() => select(word)}
-              disabled={!!selected}
-              className={`
-                px-6 py-3 border rounded text-lg
-                ${isChosen ? "bg-green-500 text-white" : "bg-white"}
-                ${selected ? "opacity-50 cursor-not-allowed" : ""}
-              `}
-            >
-              {word}
-            </button>
-          )
-        })}
+        {choices.map((word) => (
+          <button
+            key={word}
+            onClick={() => select(word)}
+            className="
+              px-8 py-4 text-lg rounded-lg bg-slate-700 hover:bg-blue-500
+              transition-all transform hover:scale-105
+            "
+          >
+            {word}
+          </button>
+        ))}
+
       </div>
     </div>
   )
