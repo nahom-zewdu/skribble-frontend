@@ -19,27 +19,34 @@ export default function JoinPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center h-screen">
-      <input
-        className="border p-2"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    <div className="h-screen flex items-center justify-center bg-slate-900 text-white">
 
-      <input
-        className="border p-2"
-        placeholder="Room ID"
-        value={room}
-        onChange={(e) => setRoom(e.target.value)}
-      />
+      <div className="bg-slate-800 p-8 rounded-xl shadow-lg flex flex-col gap-4 w-80">
 
-      <button
-        className="bg-blue-500 text-white px-4 py-2"
-        onClick={join}
-      >
-        Join Game
-      </button>
+        <h1 className="text-2xl font-bold text-center">🎨 Skribble</h1>
+
+        <input
+          className="p-3 rounded bg-slate-700 outline-none focus:ring-2 ring-blue-500"
+          placeholder="Your name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <input
+          className="p-3 rounded bg-slate-700 outline-none focus:ring-2 ring-blue-500"
+          placeholder="Room ID"
+          value={room}
+          onChange={(e) => setRoom(e.target.value)}
+        />
+
+        <button
+          className="bg-blue-500 hover:bg-blue-600 transition p-3 rounded font-bold"
+          onClick={join}
+        >
+          Join Game
+        </button>
+
+      </div>
     </div>
   )
 }
