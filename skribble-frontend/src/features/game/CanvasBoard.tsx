@@ -170,12 +170,11 @@ export default function CanvasBoard() {
   return (
     <canvas
       ref={canvasRef}
-      className="w-full h-full bg-white"
+      className="w-[800px] h-[500px] bg-white rounded-xl shadow-inner cursor-crosshair"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
-      style={{ width: "800px", height: "500px", border: "1px solid red" }}
     />
   )
 }
