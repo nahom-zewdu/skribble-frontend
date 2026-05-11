@@ -45,14 +45,19 @@ export default function GamePage() {
         </aside>
 
         {/* CENTER */}
-        <main className="flex-1 flex flex-col items-center justify-center p-4">
+        <main className="flex-1 flex items-center justify-center p-4">
 
-          {phase === "word_selection" && (
-            <WordSelector key={turnNumber} isDrawer={isDrawer} />
-          )}
+          <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <CanvasBoard />
+
+            {phase === "word_selection" && (
+              <WordSelector
+                key={turnNumber}
+                isDrawer={isDrawer}
+              />
+            )}
+
           </div>
 
         </main>
