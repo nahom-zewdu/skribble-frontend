@@ -12,17 +12,20 @@ function isExpired(deadline?: string) {
   return new Date(deadline).getTime() < Date.now()
 }
 
-export default function WordSelector() {
+export default function WordSelector({ isDrawer }: { isDrawer: boolean }) {
   const choices = useGameStore((s) => s.selectionChoices)
   const deadline = useGameStore((s) => s.selectionDeadline)
+  const players = useGameStore((s) => s.players)
+  const drawerID = useGameStore((s) => s.drawerID)
 
   const [selected, setSelected] = useState<string | null>(null)
 
   const expired = useMemo(() => isExpired(deadline), [deadline])
 
+  const drawer = players.find((p) => p.id === drawerID)
+
   function select(word: string) {
-    if (selected) return // prevent double click
-    if (expired) return
+    if (selected || expired) return
 
     setSelected(word)
 
@@ -32,33 +35,49 @@ export default function WordSelector() {
     })
   }
 
-  if (!choices || choices.length === 0){
-    console.log("No Choices Yet")
-    return null
-  }
-  if (expired) {
-    console.log("Expired")
-    return null
-  }
+  if (expired) return null
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/70 z-50 backdrop-blur-sm">
-      <div className="bg-slate-800 text-white p-8 rounded-xl shadow-xl flex gap-6">
+    <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-20">
 
-        {choices.map((word) => (
-          <button
-            key={word}
-            onClick={() => select(word)}
-            className="
-              px-8 py-4 text-lg rounded-lg bg-slate-700 hover:bg-blue-500
-              transition-all transform hover:scale-105
-            "
-          >
-            {word}
-          </button>
-        ))}
+      {/* Drawer UI */}
+      {isDrawer && choices && choices.length > 0 && (
+        <div className="bg-slate-800 text-white p-8 rounded-2xl shadow-2xl flex gap-6 animate-fade-in">
 
-      </div>
+          {choices.map((word) => (
+            <button
+              key={word}
+              onClick={() => select(word)}
+              disabled={!!selected}
+              className="
+                px-8 py-4 text-lg rounded-xl bg-slate-700
+                hover:bg-blue-500 transition-all
+                transform hover:scale-105
+                disabled:opacity-50
+              "
+            >
+              {word}
+            </button>
+          ))}
+
+        </div>
+      )}
+
+      {/* Viewer UI */}
+      {!isDrawer && (
+        <div className="bg-slate-800 text-white px-10 py-6 rounded-2xl shadow-xl text-center animate-pulse">
+
+          <div className="text-lg font-semibold">
+            ✏️ {drawer?.name || "Player"} is choosing a word...
+          </div>
+
+          <div className="text-sm opacity-70 mt-2">
+            Get ready to guess!
+          </div>
+
+        </div>
+      )}
+
     </div>
   )
 }
