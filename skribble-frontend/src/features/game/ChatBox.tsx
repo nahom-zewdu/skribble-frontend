@@ -44,7 +44,18 @@ export default function ChatBox() {
 
       <div className="p-2 border-t flex gap-2">
         <input
-          className="flex-1 border p-2"
+          className="
+                flex-1
+                bg-slate-700
+                border border-slate-600
+                rounded-lg
+                px-3 py-2
+                text-white
+                placeholder:text-slate-400
+                outline-none
+                focus:ring-2
+                focus:ring-blue-500
+              "
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
