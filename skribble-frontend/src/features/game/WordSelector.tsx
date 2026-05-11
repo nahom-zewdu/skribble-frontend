@@ -38,7 +38,7 @@ export default function WordSelector({ isDrawer }: { isDrawer: boolean }) {
   if (expired) return null
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-20">
+    <div className="absolute inset-0 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm z-20">
 
       {/* Drawer UI */}
       {isDrawer && choices && choices.length > 0 && (
