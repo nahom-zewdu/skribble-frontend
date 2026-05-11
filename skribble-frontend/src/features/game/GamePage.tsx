@@ -47,8 +47,8 @@ export default function GamePage() {
         {/* CENTER */}
         <main className="flex-1 flex flex-col items-center justify-center p-4">
 
-          {phase === "word_selection" && isDrawer && (
-            <WordSelector key={turnNumber} />
+          {phase === "word_selection" && (
+            <WordSelector key={turnNumber} isDrawer={isDrawer} />
           )}
 
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
