@@ -11,8 +11,21 @@ class GameSocket {
   private drawListeners: Set<DrawListener> = new Set()
   private listeners: Set<Listener> = new Set()
 
-  connect(name: string, room: string) {
-    const url = `ws://localhost:8080/ws?name=${name}&room=${room}`
+  connect(name: string,
+          mode: "public" | "private_create" | "private_join",
+          room?: string
+    ) {
+    const params = new URLSearchParams({
+      name,
+      mode,
+    })
+
+    if (room) {
+      params.append("room", room)
+    }
+
+    const url = `ws://localhost:8080/ws?${params.toString()}`
+
     this.ws = new WebSocket(url)
 
     this.ws.onclose = () => {
