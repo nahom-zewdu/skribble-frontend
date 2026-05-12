@@ -15,6 +15,7 @@ type GameState = {
   state: string
   phase: string
   selfID?: string
+  roomID: string
 
   players: Player[]
 
@@ -44,11 +45,13 @@ export const useGameStore = create<GameState>((set) => ({
   players: [],
   turnNumber: 0,
   messages: [],
+  roomID: "",
 
   setState: (data) =>
     set((s) => ({
       ...s,
       ...data,
       players: data.players ?? s.players ?? [],
+      roomID: data.roomID ?? s.roomID ?? [],
     })),
 }))
