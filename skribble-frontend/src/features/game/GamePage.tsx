@@ -11,6 +11,7 @@ import WordSelector from "./WordSelector"
 import Timer from "./Timer"
 
 export default function GamePage() {
+  const roomID = useGameStore((s) => s.roomID)
   const phase = useGameStore((s) => s.phase)
   const drawerID = useGameStore((s) => s.drawerID)
   const players = useGameStore((s) => s.players)
@@ -31,8 +32,23 @@ export default function GamePage() {
 
         <Timer />
 
-        <div className="font-mono tracking-widest text-xl">
-          {/* masked word goes here */}
+        <div className="flex items-center gap-3">
+
+          <button
+            onClick={() => {
+              const url = `${window.location.origin}/join/${roomID}`
+
+              navigator.clipboard.writeText(url)
+            }}
+            className="
+              px-3 py-2 rounded-lg
+              bg-slate-700 hover:bg-slate-600
+              text-sm transition
+            "
+          >
+            📋 Invite
+          </button>
+
         </div>
       </div>
 
