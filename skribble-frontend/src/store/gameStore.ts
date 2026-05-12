@@ -52,6 +52,6 @@ export const useGameStore = create<GameState>((set) => ({
       ...s,
       ...data,
       players: data.players ?? s.players ?? [],
-      roomID: data.roomID ?? s.roomID ?? [],
+      roomID: data.roomID ?? s.roomID ?? "",
     })),
 }))
