@@ -36,6 +36,7 @@ export type Player = {
 
 export type GameSnapshot = {
   state: string
+  roomID: string
   turnNumber: number
   maxTurns: number
   selfID?: string
