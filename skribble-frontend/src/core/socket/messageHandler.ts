@@ -32,6 +32,7 @@ export function initMessageHandler() {
       case "game_snapshot":
         store.setState({
           selfID: msg.data.selfID,
+          roomID: msg.data.roomID ?? store.roomID ?? "",
 
           state: msg.data.state,
           phase: mapPhase(msg.data.phase),
