@@ -15,7 +15,11 @@ class GameSocket {
           mode: "public" | "private_create" | "private_join",
           room?: string
     ) {
-    const params = new URLSearchParams({
+
+    // close previous socket
+   this.ws?.close()
+  
+   const params = new URLSearchParams({
       name,
       mode,
     })
