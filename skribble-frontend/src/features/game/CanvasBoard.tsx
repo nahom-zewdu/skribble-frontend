@@ -317,11 +317,12 @@ export default function CanvasBoard() {
       <div
         className="
           w-full
-          max-w-[860px]
-          bg-slate-800/90
-          border border-slate-700
-          backdrop-blur
-          rounded-2xl
+          max-w-[1000px]
+
+          bg-slate-800
+
+          rounded-b-2xl
+
           px-4
           py-3
           flex
