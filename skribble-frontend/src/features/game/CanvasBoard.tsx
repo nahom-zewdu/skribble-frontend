@@ -291,14 +291,17 @@ export default function CanvasBoard() {
           ref={canvasRef}
           className="
             w-full
-            max-w-[800px]
-            h-[500px]
+            max-w-[1000px]
+            aspect-[16/10]
+
             bg-white
-            rounded-2xl
-            shadow-inner
+
+            rounded-t-2xl
+            rounded-b-none
+
+            shadow-2xl
+
             touch-none
-            mx-auto
-            block
           "
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
