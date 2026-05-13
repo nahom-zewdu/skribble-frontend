@@ -278,11 +278,8 @@ export default function CanvasBoard() {
       {/* Canvas */}
       <div
         className="
-          bg-slate-900
-          border border-slate-700
           rounded-3xl
           p-3
-          shadow-2xl
           w-full
           max-w-[860px]
         "
@@ -293,14 +290,8 @@ export default function CanvasBoard() {
             w-full
             max-w-[1000px]
             aspect-[16/10]
-
             bg-white
-
-            rounded-t-2xl
-            rounded-b-none
-
             shadow-2xl
-
             touch-none
           "
           onPointerDown={handlePointerDown}
@@ -318,11 +309,7 @@ export default function CanvasBoard() {
         className="
           w-full
           max-w-[1000px]
-
           bg-slate-800
-
-          rounded-b-2xl
-
           px-4
           py-3
           flex
