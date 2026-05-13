@@ -23,11 +23,6 @@ export type ClientMessage =
   | { type: "draw_end" }
   | { type: "clear_canvas" }
 
-export type Point = {
-  x: number
-  y: number
-}
-
 export type Player = {
   id: string
   name: string
@@ -90,4 +85,33 @@ export type TurnEnded = {
 export type GameEnded = {
   players: Player[]
   restartTime: string
+}
+
+export type Point = {
+  x: number
+  y: number
+}
+
+export type DrawingTool = "brush" | "eraser"
+
+export type Stroke = {
+  points: Point[]
+
+  color: string
+  thickness: number
+
+  tool: DrawingTool
+}
+
+export type DrawStartMessage = {
+  point: Point
+
+  color: string
+  thickness: number
+
+  tool: DrawingTool
+}
+
+export type DrawMoveMessage = {
+  stroke: Stroke
 }
