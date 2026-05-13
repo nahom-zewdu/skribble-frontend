@@ -22,36 +22,39 @@ export default function GamePage() {
   const selfID = useGameStore((s) => s.selfID)
   const isDrawer = drawerID === selfID
 
+  const maskedWord = useGameStore((s) => s.maskedWord)
   return (
     <div className="h-screen flex flex-col bg-slate-900 text-white">
 
       {/* 🔝 TOP BAR */}
       <div className="h-16 flex items-center justify-between px-6 bg-slate-800 border-b border-slate-700">
 
-        <div className="text-lg font-bold">
-          Turn #{turnNumber}
+        {/* LEFT */}
+        <div className="w-32 flex justify-start">
+          <Timer />
         </div>
 
-        <Timer />
-
-        <div className="flex items-center gap-3">
-
-          <button
-            onClick={() => {
-              const url = `${window.location.origin}/join/${roomID}`
-
-              navigator.clipboard.writeText(url)
-            }}
+        {/* CENTER */}
+        <div className="flex-1 flex justify-center">
+          <div
             className="
-              px-3 py-2 rounded-lg
-              bg-slate-700 hover:bg-slate-600
-              text-sm transition
+              px-6 py-2 rounded-xl
+              bg-slate-700
+              text-2xl font-bold tracking-[0.35em]
+              uppercase
             "
           >
-            📋 Invite
-          </button>
-
+            {maskedWord || ""}
+          </div>
         </div>
+
+        {/* RIGHT */}
+        <div className="w-32 flex justify-end">
+          <div className="text-lg font-bold">
+            Turn #{turnNumber}
+          </div>
+        </div>
+
       </div>
 
       {/* 🔽 MAIN AREA */}
