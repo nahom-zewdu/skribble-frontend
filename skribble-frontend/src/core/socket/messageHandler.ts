@@ -46,6 +46,9 @@ export function initMessageHandler() {
           
           word: undefined,
 
+          turnResult: undefined,
+          gameResult: undefined,
+
           selectionDeadline: msg.data.selectionDeadline,
           playDeadline: msg.data.playDeadline,
           transitionDeadline: msg.data.transitionDeadline,
