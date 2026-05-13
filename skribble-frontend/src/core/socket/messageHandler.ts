@@ -118,13 +118,25 @@ export function initMessageHandler() {
       case "game_ended":
         store.setState({
           players: msg.data.players,
+
           state: "ended",
           phase: "game_end",
+
+          gameResult: {
+            players: [...msg.data.players].sort(
+              (a, b) => b.score - a.score
+            ),
+          },
+
           drawerID: undefined,
+
           turnNumber: 0,
+
           word: undefined,
           maskedWord: undefined,
+
           selectionChoices: [],
+
           restartTime: msg.data.restartTime,
         })
         break
