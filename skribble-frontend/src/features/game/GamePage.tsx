@@ -4,6 +4,8 @@
 // It initializes the message handler to listen for updates from the server and renders different components based on whether the user is the drawer or a guesser.
 import { useGameStore } from "../../store/gameStore"
 
+import TurnResultModal from "./TurnResultModal"
+import GameResultModal from "./GameResultModal"
 import CanvasBoard from "./CanvasBoard"
 import ChatBox from "./ChatBox"
 import PlayerList from "./PlayerList"
@@ -84,6 +86,8 @@ export default function GamePage() {
         </aside>
 
       </div>
+      <TurnResultModal />
+      <GameResultModal />
     </div>
   )
 }
