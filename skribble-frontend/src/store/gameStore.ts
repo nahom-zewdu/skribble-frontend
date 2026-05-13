@@ -43,6 +43,9 @@ type GameState = {
   nextTurnStartTime?: string
   restartTime?: string
 
+  turnResult?: TurnResult
+  gameResult?: GameResult
+  
   messages: Message[]
 
   setState: (data: Partial<GameState>) => void
