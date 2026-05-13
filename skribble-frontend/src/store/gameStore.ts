@@ -11,6 +11,15 @@ type Message = {
   type: "chat" | "system"
 }
 
+type TurnResult = {
+  word: string
+  players: Player[]
+}
+
+type GameResult = {
+  players: Player[]
+}
+
 type GameState = {
   state: string
   phase: string
