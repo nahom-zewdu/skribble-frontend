@@ -6,3 +6,24 @@
 html, body, #root {
   height: 100%;
 }
+
+@keyframes hintReveal {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.hint-reveal {
+  animation: hintReveal 0.45s ease;
+}
