@@ -33,6 +33,7 @@ type GameState = {
 
   word?: string
   maskedWord?: string
+  wordLengthHint?: string
 
   selectionChoices?: string[]
   selectionDeadline?: string
@@ -60,6 +61,7 @@ export const useGameStore = create<GameState>((set) => ({
   roomID: "",
   turnResult: undefined,
   gameResult: undefined,
+  wordLengthHint: undefined,
 
   setState: (data) =>
     set((s) => ({
