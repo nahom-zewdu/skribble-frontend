@@ -130,7 +130,7 @@ export function initMessageHandler() {
 
           drawerID: undefined,
 
-          turnNumber: 0,
+          turnNumber: store.turnNumber,
 
           word: undefined,
           maskedWord: undefined,
