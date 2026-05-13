@@ -58,6 +58,8 @@ export const useGameStore = create<GameState>((set) => ({
   turnNumber: 0,
   messages: [],
   roomID: "",
+  turnResult: undefined,
+  gameResult: undefined,
 
   setState: (data) =>
     set((s) => ({
