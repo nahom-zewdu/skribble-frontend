@@ -24,35 +24,42 @@ export default function GamePage() {
   const maskedWord = useGameStore((s) => s.maskedWord)
   const wordLengthHint = useGameStore((s) => s.wordLengthHint)
   return (
-    <div className="h-screen flex flex-col bg-slate-900 text-white">
+    <div className="h-screen flex flex-col bg-slate-900 text-white overflow-hidden">
 
       {/* 🔝 TOP BAR */}
-      <div className="h-16 flex items-center justify-between px-6 bg-slate-800 border-b border-slate-700">
+      <div
+        className="
+          h-16 shrink-0
+          flex items-center justify-between
+          px-3 sm:px-6
+          bg-slate-800
+          border-b border-slate-700
+        "
+      >
 
         {/* LEFT */}
-        <div className="w-32 flex justify-start">
+        <div className="w-20 sm:w-32 flex justify-start">
           <Timer />
         </div>
 
         {/* CENTER */}
-        <div className="flex-1 flex justify-center px-8">
+        <div className="flex-1 flex justify-center px-2 sm:px-8">
 
           <div
-            className={
-              `
-              flex items-center gap-4
-              px-5 py-2
+            className={`
+              flex items-center gap-2 sm:gap-4
+              px-3 sm:px-5
+              py-2
               rounded-2xl
               bg-slate-800/80
               border border-slate-700
               shadow-lg
               backdrop-blur-sm
-              min-w-[320px]
-              justify-center
+              max-w-full
+              overflow-hidden
               transition-all duration-300
               ${phase === "drawing" ? "opacity-100" : "opacity-60"}
-            `
-            }
+            `}
           >
 
             {/* MASKED WORD */}
@@ -60,9 +67,11 @@ export default function GamePage() {
               key={maskedWord}
               className="
                 hint-reveal
-                text-2xl font-black uppercase
-                tracking-[0.25em]
+                text-sm sm:text-2xl
+                font-black uppercase
+                tracking-[0.18em] sm:tracking-[0.25em]
                 text-white
+                whitespace-nowrap
                 transition-all duration-500
                 select-none
               "
@@ -76,12 +85,13 @@ export default function GamePage() {
                 key={wordLengthHint}
                 className="
                   hint-reveal
-                  px-3 py-1
+                  px-2 sm:px-3
+                  py-1
                   rounded-full
                   bg-slate-700
                   border border-slate-600
                   text-slate-300
-                  text-sm
+                  text-[10px] sm:text-sm
                   font-bold
                   tracking-wide
                   whitespace-nowrap
@@ -98,8 +108,8 @@ export default function GamePage() {
         </div>
 
         {/* RIGHT */}
-        <div className="w-32 flex justify-end">
-          <div className="text-lg font-bold">
+        <div className="w-20 sm:w-32 flex justify-end">
+          <div className="text-sm sm:text-lg font-bold whitespace-nowrap">
             Turn #{turnNumber}
           </div>
         </div>
@@ -107,17 +117,38 @@ export default function GamePage() {
       </div>
 
       {/* 🔽 MAIN AREA */}
-      <div className="flex flex-1 overflow-hidden">
+      <div
+        className="
+          flex-1
+          overflow-hidden
 
-        {/* LEFT */}
-        <aside className="w-64 bg-slate-800 border-r border-slate-700 overflow-y-auto">
-          <PlayerList players={players ?? []} />
-        </aside>
+          flex flex-col
+          lg:flex-row
+        "
+      >
 
-        {/* CENTER */}
-        <main className="flex-1 flex items-center justify-center p-4">
+        {/* CENTER CANVAS */}
+        <main
+          className="
+            flex-1
+            flex items-center justify-center
+            p-2 sm:p-4
+            min-h-0
+          "
+        >
 
-          <div className="relative bg-white rounded-xl shadow-lg overflow-hidden">
+          <div
+            className="
+              relative
+              bg-white
+              rounded-xl
+              shadow-lg
+              overflow-hidden
+
+              w-full
+              max-w-[1000px]
+            "
+          >
 
             <CanvasBoard />
 
@@ -132,12 +163,71 @@ export default function GamePage() {
 
         </main>
 
-        {/* RIGHT */}
-        <aside className="w-80 bg-slate-800 border-l border-slate-700">
+        {/* MOBILE BOTTOM SECTION */}
+        <div
+          className="
+            lg:hidden
+
+            h-[40vh]
+            min-h-[320px]
+
+            grid grid-cols-2
+            border-t border-slate-700
+          "
+        >
+
+          {/* LEADERBOARD */}
+          <aside
+            className="
+              bg-slate-800
+              border-r border-slate-700
+              overflow-y-auto
+            "
+          >
+            <PlayerList players={players ?? []} />
+          </aside>
+
+          {/* CHAT */}
+          <aside
+            className="
+              bg-slate-800
+              overflow-hidden
+            "
+          >
+            <ChatBox />
+          </aside>
+
+        </div>
+
+        {/* DESKTOP LEFT */}
+        <aside
+          className="
+            hidden lg:block
+            w-64
+            bg-slate-800
+            border-r border-slate-700
+            overflow-y-auto
+            order-first
+          "
+        >
+          <PlayerList players={players ?? []} />
+        </aside>
+
+        {/* DESKTOP RIGHT */}
+        <aside
+          className="
+            hidden lg:block
+            w-80
+            bg-slate-800
+            border-l border-slate-700
+            overflow-hidden
+          "
+        >
           <ChatBox />
         </aside>
 
       </div>
+
       <TurnResultModal />
       <GameResultModal />
     </div>
