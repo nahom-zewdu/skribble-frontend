@@ -170,6 +170,12 @@ export function initMessageHandler() {
           ],
         })
         break
+        
+      case "hint_revealed":
+        store.setState({
+          maskedWord: msg.data.maskedWord,
+        })
+        break
     }
   })
 }
