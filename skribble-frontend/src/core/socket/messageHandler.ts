@@ -43,7 +43,7 @@ export function initMessageHandler() {
           turnNumber: msg.data.turnNumber,
 
           maskedWord: msg.data.maskedWord,
-          
+          wordLengthHint: msg.data.wordLengthHint,
           word: undefined,
 
           turnResult: undefined,
@@ -77,6 +77,7 @@ export function initMessageHandler() {
           phase: "drawing",
           word: msg.data.word,
           maskedWord: msg.data.maskedWord,
+          wordLengthHint: msg.data.wordLengthHint,
           playDeadline: msg.data.deadline,
         })
         break
@@ -174,6 +175,7 @@ export function initMessageHandler() {
       case "hint_revealed":
         store.setState({
           maskedWord: msg.data.maskedWord,
+          wordLengthHint: msg.data.wordLengthHint,
         })
         break
     }
