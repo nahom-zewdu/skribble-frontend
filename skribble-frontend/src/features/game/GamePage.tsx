@@ -35,27 +35,62 @@ export default function GamePage() {
         </div>
 
         {/* CENTER */}
-        <div className="flex-1 flex justify-center">
-          <div className="flex flex-col items-center">
+        <div className="flex-1 flex justify-center px-8">
 
+          <div
+            className="
+              flex items-center gap-4
+              px-5 py-2
+              rounded-2xl
+              bg-slate-800/80
+              border border-slate-700
+              shadow-lg
+              backdrop-blur-sm
+              min-w-[320px]
+              justify-center
+              transition-all duration-300
+            "
+          >
+
+            {/* MASKED WORD */}
             <div
+              key={maskedWord}
               className="
-                px-6 py-2 rounded-xl
-                bg-slate-700
-                text-2xl font-bold tracking-[0.35em]
-                uppercase
+                text-2xl font-black uppercase
+                tracking-[0.25em]
+                text-white
+                transition-all duration-500
+                animate-pulse
+                select-none
               "
             >
               {maskedWord || ""}
             </div>
 
+            {/* WORD LENGTH */}
             {wordLengthHint && (
-              <div className="mt-1 text-sm text-slate-400 font-medium">
+              <div
+                key={wordLengthHint}
+                className="
+                  px-3 py-1
+                  rounded-full
+                  bg-slate-700
+                  border border-slate-600
+                  text-slate-300
+                  text-sm
+                  font-bold
+                  tracking-wide
+                  whitespace-nowrap
+                  transition-all duration-300
+                  select-none
+                "
+              >
                 {wordLengthHint}
               </div>
             )}
 
           </div>
+
         </div>
 
         {/* RIGHT */}
