@@ -273,125 +273,191 @@ export default function CanvasBoard() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-4">
-      
-      {/* Toolbar */}
-      <div className="bg-slate-800 border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center gap-4">
-
-        {/* Colors */}
-        <div className="flex items-center gap-2">
-          {COLORS.map((c) => (
-            <button
-              key={c}
-              onClick={() => {
-                setTool("brush")
-                setColor(c)
-              }}
-              className={`
-                w-8 h-8 rounded-full border-2 transition
-                ${color === c ? "border-white scale-110" : "border-slate-600"}
-              `}
-              style={{ backgroundColor: c }}
-            />
-          ))}
-        </div>
-
-        {/* Thickness */}
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-slate-300">
-            Size
-          </span>
-
-          <input
-            type="range"
-            min={2}
-            max={24}
-            value={thickness}
-            onChange={(e) => setThickness(Number(e.target.value))}
-          />
-        </div>
-
-        {/* Brush */}
-        <button
-          onClick={() => setTool("brush")}
-          className={`
-            px-4 py-2 rounded-xl font-medium transition
-            ${
-              tool === "brush"
-                ? "bg-blue-500 text-white"
-                : "bg-slate-700 text-slate-300"
-            }
-          `}
-        >
-          Brush
-        </button>
-
-        {/* Eraser */}
-        <button
-          onClick={() => setTool("eraser")}
-          className={`
-            px-4 py-2 rounded-xl font-medium transition
-            ${
-              tool === "eraser"
-                ? "bg-red-500 text-white"
-                : "bg-slate-700 text-slate-300"
-            }
-          `}
-        >
-          Eraser
-        </button>
-
-        {/* Clear */}
-        {isDrawer && (
-          <button
-            onClick={() => {
-              const ctx = ctxRef.current
-
-              if (!ctx) return
-
-              ctx.clearRect(
-                0,
-                0,
-                ctx.canvas.width,
-                ctx.canvas.height,
-              )
-
-              socket.send({
-                type: "clear_canvas",
-              })
-            }}
-            className="
-              ml-auto
-              px-4 py-2
-              rounded-xl
-              bg-slate-700 hover:bg-slate-600
-              transition
-            "
-          >
-            Clear
-          </button>
-        )}
-      </div>
+    <div className="flex flex-col items-center gap-3 w-full">
 
       {/* Canvas */}
-      <canvas
-        ref={canvasRef}
+      <div
         className="
-          w-[800px]
-          h-[500px]
-          bg-white
-          rounded-2xl
-          shadow-inner
-          touch-none
+          bg-slate-900
+          border border-slate-700
+          rounded-3xl
+          p-3
+          shadow-2xl
+          w-full
+          max-w-[860px]
         "
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
-        style={{
-          cursor: isDrawer ? "crosshair" : "not-allowed",
-        }}
-      />
+      >
+        <canvas
+          ref={canvasRef}
+          className="
+            w-full
+            max-w-[800px]
+            h-[500px]
+            bg-white
+            rounded-2xl
+            shadow-inner
+            touch-none
+            mx-auto
+            block
+          "
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          style={{
+            cursor: isDrawer ? "crosshair" : "not-allowed",
+          }}
+        />
+      </div>
+
+      {/* Toolbar */}
+      <div
+        className="
+          w-full
+          max-w-[860px]
+          bg-slate-800/90
+          border border-slate-700
+          backdrop-blur
+          rounded-2xl
+          px-4
+          py-3
+          flex
+          flex-wrap
+          items-center
+          justify-between
+          gap-4
+          shadow-xl
+        "
+      >
+
+        {/* Left Controls */}
+        <div className="flex items-center gap-4 flex-wrap">
+
+          {/* Colors */}
+          <div className="flex items-center gap-2">
+            {COLORS.map((c) => (
+              <button
+                key={c}
+                onClick={() => {
+                  setTool("brush")
+                  setColor(c)
+                }}
+                className={`
+                  w-6 h-6 rounded-full
+                  border transition-all
+                  hover:scale-110
+                  ${
+                    color === c
+                      ? "border-white scale-110"
+                      : "border-slate-500"
+                  }
+                `}
+                style={{
+                  backgroundColor: c,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-6 bg-slate-600 hidden sm:block" />
+
+          {/* Brush Size */}
+          <div className="flex items-center gap-2">
+
+            <span className="text-xs text-slate-400">
+              Size
+            </span>
+
+            <input
+              type="range"
+              min={2}
+              max={24}
+              value={thickness}
+              onChange={(e) =>
+                setThickness(Number(e.target.value))
+              }
+              className="w-24"
+            />
+
+            <span className="text-xs text-slate-300 w-6">
+              {thickness}
+            </span>
+
+          </div>
+
+        </div>
+
+        {/* Right Controls */}
+        <div className="flex items-center gap-2 ml-auto">
+
+          {/* Brush */}
+          <button
+            onClick={() => setTool("brush")}
+            className={`
+              px-3 py-2 rounded-xl text-sm font-medium transition
+              ${
+                tool === "brush"
+                  ? "bg-blue-500 text-white"
+                  : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+              }
+            `}
+          >
+            Brush
+          </button>
+
+          {/* Eraser */}
+          <button
+            onClick={() => setTool("eraser")}
+            className={`
+              px-3 py-2 rounded-xl text-sm font-medium transition
+              ${
+                tool === "eraser"
+                  ? "bg-red-500 text-white"
+                  : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+              }
+            `}
+          >
+            Eraser
+          </button>
+
+          {/* Clear */}
+          {isDrawer && (
+            <button
+              onClick={() => {
+                const ctx = ctxRef.current
+
+                if (!ctx) return
+
+                ctx.clearRect(
+                  0,
+                  0,
+                  ctx.canvas.width,
+                  ctx.canvas.height,
+                )
+
+                socket.send({
+                  type: "clear_canvas",
+                })
+              }}
+              className="
+                px-3 py-2
+                rounded-xl
+                text-sm
+                font-medium
+                bg-slate-700
+                hover:bg-slate-600
+                transition
+              "
+            >
+              Clear
+            </button>
+          )}
+
+        </div>
+
+      </div>
+
     </div>
   )
 }
