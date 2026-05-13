@@ -101,7 +101,7 @@ export function initMessageHandler() {
 
           turnResult: {
             word: msg.data.word,
-            players: msg.data.players,
+            players: [...msg.data.players].sort((a, b) => b.score - a.score),
           },
 
           word: undefined,
