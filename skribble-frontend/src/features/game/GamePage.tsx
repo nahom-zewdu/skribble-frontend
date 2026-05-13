@@ -38,7 +38,8 @@ export default function GamePage() {
         <div className="flex-1 flex justify-center px-8">
 
           <div
-            className="
+            className={
+              `
               flex items-center gap-4
               px-5 py-2
               rounded-2xl
@@ -49,18 +50,20 @@ export default function GamePage() {
               min-w-[320px]
               justify-center
               transition-all duration-300
-            "
+              ${phase === "drawing" ? "opacity-100" : "opacity-60"}
+            `
+            }
           >
 
             {/* MASKED WORD */}
             <div
               key={maskedWord}
               className="
+                hint-reveal
                 text-2xl font-black uppercase
                 tracking-[0.25em]
                 text-white
                 transition-all duration-500
-                animate-pulse
                 select-none
               "
             >
@@ -72,6 +75,7 @@ export default function GamePage() {
               <div
                 key={wordLengthHint}
                 className="
+                  hint-reveal
                   px-3 py-1
                   rounded-full
                   bg-slate-700
