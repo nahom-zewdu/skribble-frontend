@@ -75,6 +75,7 @@ export type GameSnapshot = {
   players: Player[]
 
   maskedWord: string
+  wordLengthHint?: string
 
   selectionDeadline?: string
   playDeadline?: string
