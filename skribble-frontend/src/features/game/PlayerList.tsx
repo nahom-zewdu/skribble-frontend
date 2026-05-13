@@ -11,6 +11,7 @@ type Props = {
 
 export default function PlayerList({ players }: Props) {
   const drawerID = useGameStore((s) => s.drawerID)
+  const roomID = useGameStore((s) => s.roomID)
 
   if (!players || players.length === 0) {
     return <div className="p-4">No players</div>
@@ -46,6 +47,19 @@ export default function PlayerList({ players }: Props) {
         )
       })}
     </div>
+    <button
+      onClick={() => {
+        const url = `${window.location.origin}/join/${roomID}`
+        navigator.clipboard.writeText(url)
+      }}
+      className="
+        mt-6 w-full
+        px-4 py-3 rounded-lg
+        bg-slate-700 hover:bg-slate-600
+        text-sm transition
+      ">
+      📋 Invite Friends
+    </button>
   </div>
   )
 }

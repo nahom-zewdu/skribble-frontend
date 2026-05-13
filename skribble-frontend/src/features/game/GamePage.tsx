@@ -13,7 +13,6 @@ import WordSelector from "./WordSelector"
 import Timer from "./Timer"
 
 export default function GamePage() {
-  const roomID = useGameStore((s) => s.roomID)
   const phase = useGameStore((s) => s.phase)
   const drawerID = useGameStore((s) => s.drawerID)
   const players = useGameStore((s) => s.players)
