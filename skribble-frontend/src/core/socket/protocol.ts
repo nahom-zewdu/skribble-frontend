@@ -98,6 +98,7 @@ export type DrawingStarted = {
   drawerID?: string
   word?: string
   maskedWord?: string
+  wordLengthHint?: string
   deadline: string
 }
 
