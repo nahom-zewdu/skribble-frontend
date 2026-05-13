@@ -22,6 +22,7 @@ export default function GamePage() {
   const isDrawer = drawerID === selfID
 
   const maskedWord = useGameStore((s) => s.maskedWord)
+  const wordLengthHint = useGameStore((s) => s.wordLengthHint)
   return (
     <div className="h-screen flex flex-col bg-slate-900 text-white">
 
@@ -35,15 +36,25 @@ export default function GamePage() {
 
         {/* CENTER */}
         <div className="flex-1 flex justify-center">
-          <div
-            className="
-              px-6 py-2 rounded-xl
-              bg-slate-700
-              text-2xl font-bold tracking-[0.35em]
-              uppercase
-            "
-          >
-            {maskedWord || ""}
+          <div className="flex flex-col items-center">
+
+            <div
+              className="
+                px-6 py-2 rounded-xl
+                bg-slate-700
+                text-2xl font-bold tracking-[0.35em]
+                uppercase
+              "
+            >
+              {maskedWord || ""}
+            </div>
+
+            {wordLengthHint && (
+              <div className="mt-1 text-sm text-slate-400 font-medium">
+                {wordLengthHint}
+              </div>
+            )}
+
           </div>
         </div>
 
