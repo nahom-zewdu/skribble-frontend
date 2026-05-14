@@ -3,13 +3,18 @@
 // The ChatBox allows players to send chat messages and guesses during the game.
 // It displays a list of messages received from the server and provides an input field for sending new messages.
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { socket } from "../../core/socket/websocket"
 import { useGameStore } from "../../store/gameStore"
 
 export default function ChatBox() {
   const [input, setInput] = useState("")
   const messages = useGameStore((s) => s.messages)
+  const bottomRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   function sendMessage() {
     if (!input.trim()) return
@@ -31,15 +36,41 @@ export default function ChatBox() {
   return (
     <div className="flex flex-col h-full">
 
-      <div className="flex-1 overflow-y-auto p-2 space-y-1">
-        {messages.map((m, i) => (
-          <div key={i}>
-            <span className="font-semibold">
-              {m.type === "system" ? "[System]" : m.sender}:
-            </span>{" "}
-            <span>{m.text}</span>
-          </div>
-        ))}
+      <div className="flex-1 overflow-y-auto p-3 space-y-2">
+        {messages.map((m, i) => {
+          const isSystem = m.type === "system"
+          return (
+            <div
+              key={i}
+              className={`
+                px-3 py-2 rounded-2xl
+                break-words
+                animate-chat-pop
+
+                ${
+                  isSystem
+                    ? "bg-slate-700/60 text-slate-300 text-sm italic"
+                    : "bg-slate-700 text-white"
+                }
+              `}
+            >
+
+              {!isSystem && (
+                <div className="font-bold text-blue-300 text-sm mb-1">
+                  {m.sender}
+                </div>
+              )}
+
+              <div className="text-sm">
+                {m.text}
+              </div>
+
+            </div>
+          )
+        })}
+
+        <div ref={bottomRef} />
+
       </div>
 
       <div className="p-2 border-t flex gap-2">
