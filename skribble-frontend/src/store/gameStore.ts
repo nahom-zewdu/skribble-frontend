@@ -49,6 +49,11 @@ type GameState = {
   
   messages: Message[]
 
+  recentGuess?: {
+    playerID: string
+    score: number
+  }
+
   setState: (data: Partial<GameState>) => void
 }
 
