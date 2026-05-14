@@ -94,6 +94,12 @@ export function initMessageHandler() {
             score: updatedPlayers[playerIndex].score + msg.data.score,
           }
           store.setState({ players: updatedPlayers })
+          store.setState({
+            recentGuess: {
+              playerID: msg.data.playerID,
+              score: msg.data.score,
+            },
+          })
         }
         break
 
