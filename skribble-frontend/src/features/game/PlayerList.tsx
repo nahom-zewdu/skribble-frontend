@@ -29,6 +29,19 @@ export default function PlayerList({ players }: Props) {
       {sorted.map((p, i) => {
         const isDrawer = p.id === drawerID
         const isRecentGuesser = recentGuess?.playerID === p.id
+        
+        {isRecentGuesser && (
+          <div
+            className="
+              absolute right-3 -top-1
+              text-green-400 font-black text-lg
+              animate-score-pop
+              pointer-events-none
+            "
+          >
+            +{recentGuess.score}
+          </div>
+        )}
 
         return (
           <div
