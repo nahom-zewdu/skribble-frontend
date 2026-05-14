@@ -284,6 +284,24 @@ export default function CanvasBoard() {
           max-w-[860px]
         "
       >
+        {!isDrawer && phase === "drawing" && (
+          <div
+            className="
+              absolute top-3 right-3
+              z-10
+              px-3 py-1
+              rounded-full
+              bg-slate-900/80
+              text-white
+              text-xs
+              font-semibold
+              backdrop-blur
+              pointer-events-none
+            "
+          >
+            Watching artist draw...
+          </div>
+        )}
         <canvas
           ref={canvasRef}
           className="
