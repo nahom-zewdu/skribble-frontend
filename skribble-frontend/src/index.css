@@ -27,3 +27,25 @@ html, body, #root {
 .hint-reveal {
   animation: hintReveal 0.45s ease;
 }
+
+/* Score Pop Animation */
+@keyframes score-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) scale(1.15);
+  }
+}
+
+.animate-score-pop {
+  animation: score-pop 1.8s ease-out forwards;
+}
