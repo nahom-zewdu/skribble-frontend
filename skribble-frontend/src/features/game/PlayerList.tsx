@@ -51,8 +51,8 @@ export default function PlayerList({ players }: Props) {
               flex justify-between items-center
               p-3 rounded-lg transition-all duration-500
               ${isDrawer
-                  ? "bg-yellow-400 text-black"
-                  : "bg-slate-700"}
+                  ? "bg-gradient-to-r"
+                  : "from-yellow-300 to-amber-400"}
               ${isRecentGuesser
                   ? "scale-[1.03] ring-2 ring-green-400 shadow-lg shadow-green-500/30"
                   : ""}
