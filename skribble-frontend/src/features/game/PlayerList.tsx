@@ -29,19 +29,6 @@ export default function PlayerList({ players }: Props) {
       {sorted.map((p, i) => {
         const isDrawer = p.id === drawerID
         const isRecentGuesser = recentGuess?.playerID === p.id
-        
-        {isRecentGuesser && (
-          <div
-            className="
-              absolute right-3 -top-1
-              text-green-400 font-black text-lg
-              animate-score-pop
-              pointer-events-none
-            "
-          >
-            +{recentGuess.score}
-          </div>
-        )}
 
         return (
           <div
@@ -49,22 +36,60 @@ export default function PlayerList({ players }: Props) {
             className={`
               relative overflow-hidden
               flex justify-between items-center
-              p-3 rounded-lg transition-all duration-500
-              ${isDrawer
-                  ? "bg-gradient-to-r"
-                  : "from-yellow-300 to-amber-400"}
-              ${isRecentGuesser
+              p-3 rounded-2xl
+              transition-all duration-500
+              transition-transform duration-500
+
+              ${
+                isDrawer
+                  ? "bg-gradient-to-r from-yellow-300 to-amber-400 text-black shadow-lg"
+                  : "bg-slate-700"
+              }
+
+              ${
+                isRecentGuesser
                   ? "scale-[1.03] ring-2 ring-green-400 shadow-lg shadow-green-500/30"
-                  : ""}
+                  : ""
+              }
             `}
           >
-            <div className="flex gap-2 items-center">
-              <span className="text-sm opacity-60">#{i + 1}</span>
-              <span>{p.name}</span>
-              {isDrawer && " ✏️"}
+            <div className="flex gap-2 items-center min-w-0">
+              <span className="text-sm opacity-60">
+                #{i + 1}
+              </span>
+              <span className="truncate font-semibold">
+                {p.name}
+              </span>
+              {isDrawer && (
+                <span className="animate-bounce">
+                  ✏️
+                </span>
+              )}
             </div>
 
-            <span className="font-mono">{p.score}</span>
+            <div className="relative">
+              <span className="font-mono font-bold">
+                {p.score}
+              </span>
+              {isRecentGuesser && (
+                <div
+                  className="
+                    absolute
+                    -top-5
+                    left-1/2
+                    -translate-x-1/2
+                    text-green-400
+                    font-black
+                    text-sm
+                    animate-score-pop
+                    pointer-events-none
+                  "
+                >
+                  +{recentGuess.score}
+                </div>
+              )}
+
+            </div>
           </div>
         )
       })}
