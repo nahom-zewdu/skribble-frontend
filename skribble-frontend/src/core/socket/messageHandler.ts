@@ -100,6 +100,15 @@ export function initMessageHandler() {
               score: msg.data.score,
             },
           })
+          setTimeout(() => {
+            const current = useGameStore.getState().recentGuess
+
+            if (current?.playerID === msg.data.playerID) {
+              useGameStore.setState({
+                recentGuess: undefined,
+              })
+            }
+          }, 1800)
         }
         break
 
