@@ -138,7 +138,9 @@ export default function GamePage() {
         >
 
           <div
+            key={`${turnNumber}-${phase}`}
             className="
+              animate-canvas-enter
               relative
               bg-white
               rounded-xl
