@@ -43,6 +43,8 @@ export default function CanvasBoard() {
   const [thickness, setThickness] = useState(5)
   const [tool, setTool] = useState<DrawingTool>("brush")
 
+  const [hoverPoint, setHoverPoint] = useState<Point | null>(null)
+
   // -----------------------------
   // Canvas setup
   // -----------------------------
@@ -147,6 +149,8 @@ export default function CanvasBoard() {
       y: e.clientY - rect.top,
     }
 
+    setHoverPoint(point)
+    
     const buffer = bufferRef.current
     const last = buffer[buffer.length - 1]
 
