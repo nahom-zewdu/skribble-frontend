@@ -12,6 +12,7 @@ type Props = {
 export default function PlayerList({ players }: Props) {
   const drawerID = useGameStore((s) => s.drawerID)
   const roomID = useGameStore((s) => s.roomID)
+  const recentGuess = useGameStore((s) => s.recentGuess)
 
   if (!players || players.length === 0) {
     return <div className="p-4">No players</div>
@@ -27,13 +28,21 @@ export default function PlayerList({ players }: Props) {
     <div className="flex flex-col gap-2">
       {sorted.map((p, i) => {
         const isDrawer = p.id === drawerID
+        const isRecentGuesser = recentGuess?.playerID === p.id
 
         return (
           <div
             key={p.id}
             className={`
-              flex justify-between items-center p-3 rounded-lg transition-all
-              ${isDrawer ? "bg-yellow-400 text-black" : "bg-slate-700"}
+              relative overflow-hidden
+              flex justify-between items-center
+              p-3 rounded-lg transition-all duration-500
+              ${isDrawer
+                  ? "bg-yellow-400 text-black"
+                  : "bg-slate-700"}
+              ${isRecentGuesser
+                  ? "scale-[1.03] ring-2 ring-green-400 shadow-lg shadow-green-500/30"
+                  : ""}
             `}
           >
             <div className="flex gap-2 items-center">
