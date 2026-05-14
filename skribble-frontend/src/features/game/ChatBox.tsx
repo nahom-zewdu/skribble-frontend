@@ -64,7 +64,16 @@ export default function ChatBox() {
 
         <button
           onClick={sendMessage}
-          className="px-4 bg-blue-500 text-white"
+          className="
+            px-4
+            rounded-lg
+            bg-blue-500
+            hover:bg-blue-400
+            active:scale-95
+            transition-all
+            text-white
+            font-semibold
+          "
         >
           Send
         </button>
