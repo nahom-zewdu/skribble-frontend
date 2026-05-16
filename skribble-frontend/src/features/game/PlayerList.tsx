@@ -26,10 +26,12 @@ export default function PlayerList({ players }: Props) {
 
   const [copied, setCopied] = useState(false)
 
-  const [bubbles, setBubbles] = useState<FloatingBubble[]>([])
+  const [bubbles, setBubbles] = useState<
+    FloatingBubble[]
+  >([])
 
   // -----------------------------------
-  // Floating leaderboard score bubbles
+  // Floating score bubbles
   // -----------------------------------
   useEffect(() => {
     if (!recentGuess) return
@@ -38,7 +40,8 @@ export default function PlayerList({ players }: Props) {
       id: crypto.randomUUID(),
       playerID: recentGuess.playerID,
       score: recentGuess.score,
-      drawerPoints: recentGuess.drawerPoints ?? 0,
+      drawerPoints:
+        recentGuess.drawerPoints ?? 0,
     }
 
     setBubbles((prev) => [...prev, bubble])
@@ -60,13 +63,13 @@ export default function PlayerList({ players }: Props) {
 
     const timeout = setTimeout(() => {
       setCopied(false)
-    }, 1600)
+    }, 1700)
 
     return () => clearTimeout(timeout)
   }, [copied])
 
   // -----------------------------------
-  // Sorted players with stable memo
+  // Stable sorting
   // -----------------------------------
   const sortedPlayers = useMemo(() => {
     return [...players].sort((a, b) => {
@@ -80,27 +83,58 @@ export default function PlayerList({ players }: Props) {
 
   if (!players?.length) {
     return (
-      <div className="p-4 text-slate-400">
+      <div className="p-4 text-zinc-400">
         No players
       </div>
     )
   }
 
   return (
-    <div className="relative p-4 overflow-hidden">
+    <div
+      className="
+        relative
+        h-full
+        overflow-hidden
+        bg-[#1f1f1f]
+      "
+    >
 
-      {/* -------------------------------- */}
-      {/* Floating Score Layer */}
-      {/* -------------------------------- */}
-      <div className="pointer-events-none absolute inset-0 z-40 overflow-hidden">
+      {/* Top decorative stripe */}
+      <div
+        className="
+          h-3
+          border-b-4 border-black
+          bg-[repeating-linear-gradient(45deg,#ffd166_0px,#ffd166_16px,#18181b_16px,#18181b_32px)]
+        "
+      />
 
+      {/* Background pattern */}
+      <div
+        className="
+          absolute inset-0
+          opacity-[0.04]
+          pointer-events-none
+          [background-image:linear-gradient(rgba(255,255,255,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.2)_1px,transparent_1px)]
+          [background-size:24px_24px]
+        "
+      />
+
+      {/* Floating bubbles */}
+      <div
+        className="
+          pointer-events-none
+          absolute inset-0
+          z-40
+          overflow-hidden
+        "
+      >
         {bubbles.map((bubble) => (
           <div
             key={bubble.id}
             className="
               absolute
               left-1/2
-              bottom-4
+              bottom-5
               -translate-x-1/2
               animate-score-bubble-rise
             "
@@ -113,22 +147,21 @@ export default function PlayerList({ players }: Props) {
               "
             >
 
-              {/* Main score */}
+              {/* Score */}
               <div
                 className="
-                  px-5 py-3
                   rounded-full
-                  bg-green-500/20
-                  border border-green-400/40
-                  backdrop-blur-md
-                  shadow-[0_0_40px_rgba(34,197,94,0.35)]
+                  border-4 border-black
+                  bg-[#4ade80]
+                  px-4 py-2
+                  shadow-[0_5px_0_#000]
                 "
               >
                 <div
                   className="
-                    text-3xl
+                    text-lg sm:text-2xl
                     font-black
-                    text-green-300
+                    text-black
                     tracking-wide
                   "
                 >
@@ -140,17 +173,20 @@ export default function PlayerList({ players }: Props) {
               {bubble.drawerPoints > 0 && (
                 <div
                   className="
-                    px-3 py-1
                     rounded-full
-                    bg-yellow-400/10
-                    border border-yellow-300/20
-                    text-yellow-200
-                    text-xs
-                    font-bold
+                    border-2 border-black
+                    bg-[#ffd166]
+                    px-3 py-1
+                    text-[10px]
+                    font-black
+                    uppercase
                     tracking-wide
+                    text-black
+                    shadow-[0_3px_0_#000]
                   "
                 >
-                  Drawer +{bubble.drawerPoints}
+                  drawer +
+                  {bubble.drawerPoints}
                 </div>
               )}
 
@@ -158,176 +194,311 @@ export default function PlayerList({ players }: Props) {
 
           </div>
         ))}
-
       </div>
 
-      {/* -------------------------------- */}
-      {/* Header */}
-      {/* -------------------------------- */}
-      <h2 className="font-bold mb-4 text-slate-300">
-        Leaderboard
-      </h2>
-
-      {/* -------------------------------- */}
-      {/* Players */}
-      {/* -------------------------------- */}
-      <div className="flex flex-col gap-2">
-
-        {sortedPlayers.map((p, i) => {
-          const isDrawer = p.id === drawerID
-          const isScored =
-            recentGuess?.playerID === p.id
-
-          return (
-            <div
-              key={p.id}
-              className={`
-                relative
-                overflow-hidden
-
-                flex justify-between items-center
-
-                p-3 rounded-2xl
-
-                transition-all
-                duration-700
-                ease-[cubic-bezier(0.22,1,0.36,1)]
-
-                transform-gpu
-
-                ${
-                  isDrawer
-                    ? `
-                      bg-gradient-to-r
-                      from-yellow-300
-                      to-amber-400
-                      text-black
-                      shadow-lg
-                    `
-                    : `
-                      bg-slate-700
-                      text-white
-                    `
-                }
-
-                ${
-                  isScored
-                    ? `
-                      scale-[1.03]
-                      ring-2
-                      ring-green-400/70
-                      shadow-[0_0_30px_rgba(34,197,94,0.25)]
-                    `
-                    : ""
-                }
-              `}
-              style={{
-                transitionProperty:
-                  "transform, background-color, box-shadow",
-              }}
-            >
-
-              {/* Animated glow */}
-              {isScored && (
-                <div
-                  className="
-                    absolute inset-0
-                    bg-gradient-to-r
-                    from-green-400/10
-                    via-green-300/20
-                    to-green-400/10
-                    animate-pulse
-                  "
-                />
-              )}
-
-              {/* Left */}
-              <div className="relative flex gap-2 items-center min-w-0">
-
-                <div
-                  className="
-                    w-7 h-7
-                    rounded-full
-                    flex items-center justify-center
-                    text-xs font-black
-                    bg-black/10
-                  "
-                >
-                  #{i + 1}
-                </div>
-
-                <span className="truncate font-semibold">
-                  {p.name}
-                </span>
-
-                {isDrawer && (
-                  <span
-                    className="
-                      animate-bounce
-                      text-lg
-                    "
-                  >
-                    ✏️
-                  </span>
-                )}
-
-              </div>
-
-              {/* Right */}
-              <div className="relative flex items-center">
-
-                <span
-                  className="
-                    font-mono
-                    font-black
-                    text-lg
-                    tracking-wide
-                  "
-                >
-                  {p.score}
-                </span>
-
-              </div>
-
-            </div>
-          )
-        })}
-
-      </div>
-
-      {/* -------------------------------- */}
-      {/* Invite */}
-      {/* -------------------------------- */}
-      <button
-        onClick={() => {
-          const url = `${window.location.origin}/join/${roomID}`
-
-          navigator.clipboard.writeText(url)
-
-          setCopied(true)
-        }}
+      {/* Content */}
+      <div
         className="
-          mt-6
-          w-full
-
-          px-4 py-3
-
-          rounded-xl
-
-          bg-slate-700
-          hover:bg-slate-600
-
-          active:scale-[0.98]
-
-          transition-all
-
-          font-semibold
+          relative z-10
+          flex h-full flex-col
+          p-3 sm:p-4
         "
       >
-        {copied
-          ? "✅ Invite Link Copied"
-          : "📋 Invite Friends"}
-      </button>
+
+        {/* Header */}
+        <div
+          className="
+            mb-4
+            flex items-center justify-between
+            gap-2
+          "
+        >
+
+          <div>
+
+            <div
+              className="
+                text-[10px]
+                font-black
+                uppercase
+                tracking-[0.25em]
+                text-zinc-500
+              "
+            >
+              live ranking
+            </div>
+
+            <h2
+              className="
+                text-xl
+                sm:text-2xl
+                font-black
+                tracking-tight
+                text-white
+              "
+            >
+              Leaderboard
+            </h2>
+
+          </div>
+
+          <div
+            className="
+              rounded-full
+              border-4 border-black
+              bg-[#ffd166]
+              px-3 py-1
+              text-xs
+              font-black
+              text-black
+              shadow-[0_4px_0_#000]
+              shrink-0
+            "
+          >
+            {players.length}
+            P
+          </div>
+
+        </div>
+
+        {/* Players */}
+        <div
+          className="
+            flex-1
+            overflow-y-auto
+            pr-1
+          "
+        >
+
+          <div className="flex flex-col gap-2">
+
+            {sortedPlayers.map((p, i) => {
+              const isDrawer =
+                p.id === drawerID
+
+              const isScored =
+                recentGuess?.playerID === p.id
+
+              return (
+                <div
+                  key={p.id}
+                  className={`
+                    relative
+                    overflow-hidden
+
+                    flex items-center justify-between
+
+                    rounded-[20px]
+                    border-4 border-black
+
+                    px-2 py-2
+                    sm:px-3 sm:py-3
+
+                    shadow-[0_5px_0_#000]
+
+                    transition-all
+                    duration-700
+                    ease-[cubic-bezier(0.22,1,0.36,1)]
+
+                    hover:translate-y-[1px]
+                    hover:shadow-[0_4px_0_#000]
+
+                    ${
+                      isDrawer
+                        ? `
+                          bg-[#ffd166]
+                          text-black
+                        `
+                        : i === 0
+                        ? `
+                          bg-[#60a5fa]
+                          text-black
+                        `
+                        : i === 1
+                        ? `
+                          bg-[#f472b6]
+                          text-black
+                        `
+                        : `
+                          bg-[#3f3f46]
+                          text-white
+                        `
+                    }
+
+                    ${
+                      isScored
+                        ? `
+                          scale-[1.02]
+                        `
+                        : ""
+                    }
+                  `}
+                >
+
+                  {/* Pulse glow */}
+                  {isScored && (
+                    <div
+                      className="
+                        absolute inset-0
+                        bg-white/10
+                        animate-pulse
+                      "
+                    />
+                  )}
+
+                  {/* Left */}
+                  <div
+                    className="
+                      relative
+                      flex items-center
+                      gap-2
+                      min-w-0
+                      flex-1
+                    "
+                  >
+
+                    {/* Rank */}
+                    <div
+                      className="
+                        w-7 h-7
+                        sm:w-8 sm:h-8
+
+                        shrink-0
+
+                        rounded-full
+                        border-2 border-black
+
+                        bg-black/10
+
+                        flex items-center justify-center
+
+                        text-[10px]
+                        sm:text-xs
+                        font-black
+                      "
+                    >
+                      #{i + 1}
+                    </div>
+
+                    {/* Name */}
+                    <div
+                      className="
+                        min-w-0
+                        flex items-center
+                        gap-1
+                      "
+                    >
+
+                      <span
+                        className="
+                          truncate
+                          text-xs
+                          sm:text-sm
+                          lg:text-base
+                          font-black
+                        "
+                      >
+                        {p.name}
+                      </span>
+
+                      {isDrawer && (
+                        <span
+                          className="
+                            shrink-0
+                            text-sm
+                            sm:text-base
+                            animate-bounce
+                          "
+                        >
+                          ✏️
+                        </span>
+                      )}
+
+                    </div>
+
+                  </div>
+
+                  {/* Score */}
+                  <div
+                    className="
+                      relative
+                      ml-2
+                      shrink-0
+                    "
+                  >
+
+                    <div
+                      className="
+                        rounded-full
+                        border-2 border-black
+
+                        bg-black/10
+
+                        px-2 py-1
+                        sm:px-3
+
+                        text-xs
+                        sm:text-sm
+                        font-black
+                        tracking-wide
+                      "
+                    >
+                      {p.score}
+                    </div>
+
+                  </div>
+
+                </div>
+              )
+            })}
+
+          </div>
+
+        </div>
+
+        {/* Invite button */}
+        <button
+          onClick={() => {
+            const url = `${window.location.origin}/join/${roomID}`
+
+            navigator.clipboard.writeText(url)
+
+            setCopied(true)
+          }}
+          className="
+            mt-4
+
+            rounded-[18px]
+            border-4 border-black
+
+            bg-[#4ade80]
+
+            px-4 py-3
+
+            text-sm
+            sm:text-base
+            font-black
+            uppercase
+            tracking-wide
+            text-black
+
+            shadow-[0_5px_0_#000]
+
+            transition-all
+
+            hover:translate-y-[2px]
+            hover:shadow-[0_3px_0_#000]
+
+            active:translate-y-[4px]
+            active:shadow-[0_1px_0_#000]
+          "
+        >
+          {copied
+            ? "Invite Copied!"
+            : "Invite Friends"}
+        </button>
+
+      </div>
 
     </div>
   )
