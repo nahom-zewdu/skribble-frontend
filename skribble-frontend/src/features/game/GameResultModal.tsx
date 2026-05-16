@@ -148,7 +148,7 @@ export default function GameResultModal() {
 
           {/* FOOTER */}
           <div className="mt-6 text-center text-xs text-zinc-500 font-semibold">
-            GG — thanks for playing
+            GG thanks for playing
           </div>
 
         </div>

@@ -84,7 +84,7 @@ export default function WordSelector({
             </h2>
 
             <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Choose carefully — others will guess it
+              Choose carefully others will guess it
             </p>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -177,7 +177,7 @@ export default function WordSelector({
             </div>
 
             <div className="text-sm text-zinc-400 mt-2">
-              Get ready — guessing starts soon
+              Get ready guessing starts soon
             </div>
 
             <div className="mt-4 flex justify-center">
