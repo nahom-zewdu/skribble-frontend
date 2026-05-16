@@ -110,6 +110,8 @@ export type ChatMessage = {
 export type CorrectGuess = {
   playerID: string
   score: number
+  drawerID: string
+  drawerPoints: number
 }
 
 export type TurnEnded = {
