@@ -88,16 +88,30 @@ export function initMessageHandler() {
           (p) => p.id === msg.data.playerID
         )
         if (playerIndex !== -1) {
-          const updatedPlayers = [...store.players]
-          updatedPlayers[playerIndex] = {
-            ...updatedPlayers[playerIndex],
-            score: updatedPlayers[playerIndex].score + msg.data.score,
-          }
+          const updatedPlayers = store.players.map((p) => {
+            if (p.id === msg.data.playerID) {
+              return {
+                ...p,
+                score: p.score + msg.data.score,
+              }
+            }
+
+            if (p.id === msg.data.drawerID) {
+              return {
+                ...p,
+                score: p.score + msg.data.drawerPoints,
+              }
+            }
+
+            return p
+          })
           store.setState({ players: updatedPlayers })
           store.setState({
             recentGuess: {
               playerID: msg.data.playerID,
               score: msg.data.score,
+              drawerID: msg.data.drawerID,
+              drawerPoints: msg.data.drawerPoints,
             },
           })
           setTimeout(() => {
