@@ -280,7 +280,7 @@ export default function PlayerList({ players }: Props) {
                 recentGuess?.playerID === p.id
 
               return (
-                <div
+               <div
                   key={p.id}
                   className={`
                     relative
@@ -288,20 +288,17 @@ export default function PlayerList({ players }: Props) {
 
                     flex items-center justify-between
 
-                    rounded-[20px]
+                    rounded-[18px]
                     border-4 border-black
 
-                    px-2 py-2
-                    sm:px-3 sm:py-3
+                    px-2 py-1.5
+                    sm:px-3 sm:py-2
 
-                    shadow-[0_5px_0_#000]
+                    shadow-[0_4px_0_#000]
 
                     transition-all
                     duration-700
                     ease-[cubic-bezier(0.22,1,0.36,1)]
-
-                    hover:translate-y-[1px]
-                    hover:shadow-[0_4px_0_#000]
 
                     ${
                       isDrawer
@@ -346,12 +343,12 @@ export default function PlayerList({ players }: Props) {
                     />
                   )}
 
-                  {/* Left */}
+                  {/* LEFT SIDE */}
                   <div
                     className="
                       relative
                       flex items-center
-                      gap-2
+                      gap-1.5
                       min-w-0
                       flex-1
                     "
@@ -360,8 +357,8 @@ export default function PlayerList({ players }: Props) {
                     {/* Rank */}
                     <div
                       className="
-                        w-7 h-7
-                        sm:w-8 sm:h-8
+                        w-5 h-5
+                        sm:w-6 sm:h-6
 
                         shrink-0
 
@@ -372,8 +369,8 @@ export default function PlayerList({ players }: Props) {
 
                         flex items-center justify-center
 
-                        text-[10px]
-                        sm:text-xs
+                        text-[9px]
+                        sm:text-[10px]
                         font-black
                       "
                     >
@@ -386,16 +383,21 @@ export default function PlayerList({ players }: Props) {
                         min-w-0
                         flex items-center
                         gap-1
+                        flex-1
                       "
                     >
 
                       <span
                         className="
                           truncate
-                          text-xs
-                          sm:text-sm
-                          lg:text-base
+                          flex-1
+
+                          text-[11px]
+                          sm:text-xs
+                          lg:text-sm
+
                           font-black
+                          leading-none
                         "
                       >
                         {p.name}
@@ -405,8 +407,8 @@ export default function PlayerList({ players }: Props) {
                         <span
                           className="
                             shrink-0
-                            text-sm
-                            sm:text-base
+                            text-xs
+                            sm:text-sm
                             animate-bounce
                           "
                         >
@@ -418,29 +420,36 @@ export default function PlayerList({ players }: Props) {
 
                   </div>
 
-                  {/* Score */}
+                  {/* SCORE */}
                   <div
                     className="
                       relative
-                      ml-2
+                      ml-1
                       shrink-0
                     "
                   >
 
                     <div
                       className="
+                        min-w-[40px]
+                        sm:min-w-[48px]
+
                         rounded-full
                         border-2 border-black
 
                         bg-black/10
 
-                        px-2 py-1
-                        sm:px-3
+                        px-1.5 py-0.5
+                        sm:px-2 sm:py-1
 
-                        text-xs
-                        sm:text-sm
+                        text-center
+
+                        text-[10px]
+                        sm:text-xs
+
                         font-black
                         tracking-wide
+                        leading-none
                       "
                     >
                       {p.score}
