@@ -311,7 +311,7 @@ export default function GamePage() {
 
               shadow-[0_10px_0_#000]
 
-              overflow-hidden
+              overflow-hidden min-w-0
             "
           >
             <PlayerList players={players ?? []} />
