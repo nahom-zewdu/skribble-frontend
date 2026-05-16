@@ -143,9 +143,9 @@ export default function GamePage() {
                   overflow-hidden
 
                   flex flex-col sm:flex-row
-                  items-center
+                  items-center justify-center
 
-                  gap-1 sm:gap-3
+                  gap-2 sm:gap-3
 
                   px-3 sm:px-6
                   py-2 sm:py-3
@@ -156,7 +156,9 @@ export default function GamePage() {
                   shadow-[0_6px_0_#000]
 
                   min-w-0
-                  w-full max-w-[600px]
+                  w-full max-w-[650px]
+
+                  text-center
 
                   transition-all duration-300
 
@@ -169,79 +171,66 @@ export default function GamePage() {
               >
 
                 {/* shine */}
-                <div
-                  className="
-                    absolute inset-0
-                    bg-gradient-to-r
-                    from-white/0 via-white/10 to-white/0
-                    translate-x-[-100%]
-                    animate-[shine_5s_linear_infinite]
-                  "
-                />
-
-                {/* WORD */}
-                <div
-                  key={maskedWord}
-                  className={`
-                    relative z-10
-                    hint-reveal
-
-                    font-black
-                    uppercase
-
-                    tracking-[0.12em] sm:tracking-[0.25em]
-
-                    text-xs sm:text-lg lg:text-2xl
-
-                    leading-tight
-
-                    whitespace-normal
-                    break-words
-
-                    text-center
-                    min-w-0
-
-                    ${
-                      phase === "drawing"
-                        ? "text-black"
-                        : "text-zinc-200"
-                    }
-                  `}
-                >
-                  {maskedWord || "WAITING"}
-                </div>
-
-                {/* WORD LENGTH */}
-                {wordLengthHint && (
+                <div className="relative z-10 flex flex-col items-center justify-center min-w-0 w-full">
+  
+                  {/* WORD */}
                   <div
-                    key={wordLengthHint}
-                    className="
-                      relative z-10
-
-                      rounded-full
-                      border-4 border-black
-
-                      bg-[#ffd166]
-
-                      px-2 sm:px-3
-                      py-0.5 sm:py-1
-
-                      text-[9px] sm:text-sm
+                    key={maskedWord}
+                    className={`
+                      hint-reveal
 
                       font-black
-                      tracking-wide
-                      text-black
+                      uppercase
 
-                      shadow-[0_3px_0_#000]
+                      text-center
+                      leading-tight
 
-                      whitespace-nowrap
+                      tracking-[0.12em] sm:tracking-[0.25em]
 
-                      shrink-0
-                    "
+                      text-xs sm:text-lg lg:text-2xl
+
+                      whitespace-normal
+                      break-words
+
+                      max-w-full
+                    `}
                   >
-                    {wordLengthHint}
+                    {maskedWord || "WAITING"}
                   </div>
-                )}
+
+                  {/* LENGTH */}
+                  {wordLengthHint && (
+                    <div
+                      key={wordLengthHint}
+                      className="
+                        mt-2
+
+                        inline-flex
+                        items-center
+                        justify-center
+
+                        px-3 py-1
+
+                        rounded-full
+                        border-4 border-black
+
+                        bg-[#ffd166]
+
+                        text-[10px] sm:text-sm
+                        font-black
+
+                        tracking-wide
+                        text-black
+
+                        shadow-[0_3px_0_#000]
+
+                        whitespace-nowrap
+                      "
+                    >
+                      {wordLengthHint}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
