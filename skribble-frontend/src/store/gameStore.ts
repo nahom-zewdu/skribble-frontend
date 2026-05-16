@@ -50,6 +50,7 @@ type GameState = {
   messages: Message[]
 
   recentGuess?: {
+    id: string
     playerID: string
     score: number
     drawerID: string
