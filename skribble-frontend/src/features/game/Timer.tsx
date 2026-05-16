@@ -39,8 +39,6 @@ export default function Timer() {
         case "game_end":
           remaining = getRemaining(restartTime)
           break
-        default:
-          remaining = 0
       }
 
       setSeconds(remaining)
@@ -52,7 +50,14 @@ export default function Timer() {
   if (!phase || phase === "waiting") return null
 
   return (
-    <div className="text-xl font-bold mb-2">
+    <div
+      className="
+        text-sm sm:text-lg lg:text-xl
+        font-black
+        leading-none
+        whitespace-nowrap
+      "
+    >
       ⏱ {seconds}s
     </div>
   )
