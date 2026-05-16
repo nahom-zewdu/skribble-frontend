@@ -136,32 +136,29 @@ export default function GamePage() {
             </div>
 
             {/* CENTER - WORD */}
-            <div
-              className="
-                flex-1
-                min-w-0
-                flex justify-center
-              "
-            >
+            <div className="flex-1 flex justify-center min-w-0">
               <div
                 className={`
                   relative
                   overflow-hidden
 
-                  flex items-center
-                  gap-2 sm:gap-4
+                  flex flex-col sm:flex-row
+                  items-center
 
-                  px-2 sm:px-6
+                  gap-1 sm:gap-3
+
+                  px-3 sm:px-6
                   py-2 sm:py-3
 
-                  rounded-[20px] sm:rounded-[24px]
+                  rounded-[24px]
                   border-4 border-black
 
                   shadow-[0_6px_0_#000]
 
-                  transition-all duration-300
+                  min-w-0
+                  w-full max-w-[600px]
 
-                  max-w-full
+                  transition-all duration-300
 
                   ${
                     phase === "drawing"
@@ -192,12 +189,17 @@ export default function GamePage() {
                     font-black
                     uppercase
 
-                    whitespace-nowrap
-                    truncate
+                    tracking-[0.12em] sm:tracking-[0.25em]
 
-                    tracking-[0.12em] sm:tracking-[0.28em]
+                    text-xs sm:text-lg lg:text-2xl
 
-                    text-[11px] sm:text-2xl
+                    leading-tight
+
+                    whitespace-normal
+                    break-words
+
+                    text-center
+                    min-w-0
 
                     ${
                       phase === "drawing"
