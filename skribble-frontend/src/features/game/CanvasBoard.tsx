@@ -282,6 +282,7 @@ export default function CanvasBoard() {
       {/* Canvas */}
       <div
         className="
+          relative
           rounded-3xl
           p-3
           w-full
@@ -325,6 +326,22 @@ export default function CanvasBoard() {
           }}
         />
       </div>
+
+      {isDrawer && hoverPoint && (
+        <div
+          className="absolute rounded-full pointer-events-none border border-slate-400"
+          style={{
+            left: hoverPoint.x - thickness / 2,
+            top: hoverPoint.y - thickness / 2,
+            width: thickness,
+            height: thickness,
+            background:
+              tool === "eraser"
+                ? "rgba(255,255,255,0.8)"
+                : color,
+          }}
+        />
+      )}
 
       {/* Toolbar */}
       <div
