@@ -84,59 +84,65 @@ export default function GamePage() {
         <header
           className="
             shrink-0
-            px-3 py-3
-            sm:px-5
+            px-2 py-2 sm:px-5 sm:py-3
           "
         >
-
           <div
             className="
-              h-[82px]
+              h-[64px] sm:h-[82px]
 
-              rounded-[28px]
+              rounded-[24px] sm:rounded-[28px]
               border-4 border-black
 
               bg-[#262626]
 
               shadow-[0_8px_0_#000]
 
-              px-4 sm:px-6
+              px-2 sm:px-6
 
-              flex items-center justify-between
-              gap-3
+              flex items-center
+              justify-between
+              gap-2 sm:gap-3
             "
           >
 
-            {/* LEFT */}
+            {/* LEFT - TIMER */}
             <div
               className="
-                min-w-[90px]
-                sm:min-w-[130px]
+                flex-shrink-0
+                min-w-[60px] sm:min-w-[120px]
                 flex justify-start
               "
             >
               <div
                 className="
-                  rounded-[18px]
+                  rounded-[14px] sm:rounded-[18px]
                   border-4 border-black
+
                   bg-[#ffd166]
-                  px-4 py-2
+
+                  px-2 sm:px-4
+                  py-1 sm:py-2
+
                   shadow-[0_4px_0_#000]
+
+                  scale-[0.9] sm:scale-100
                 "
               >
-                <Timer />
+                <div className="text-[10px] sm:text-base font-black">
+                  <Timer />
+                </div>
               </div>
             </div>
 
-            {/* CENTER */}
+            {/* CENTER - WORD */}
             <div
               className="
                 flex-1
-                flex justify-center
                 min-w-0
+                flex justify-center
               "
             >
-
               <div
                 className={`
                   relative
@@ -145,15 +151,17 @@ export default function GamePage() {
                   flex items-center
                   gap-2 sm:gap-4
 
-                  px-4 sm:px-6
-                  py-3
+                  px-2 sm:px-6
+                  py-2 sm:py-3
 
-                  rounded-[24px]
+                  rounded-[20px] sm:rounded-[24px]
                   border-4 border-black
 
                   shadow-[0_6px_0_#000]
 
                   transition-all duration-300
+
+                  max-w-full
 
                   ${
                     phase === "drawing"
@@ -166,12 +174,9 @@ export default function GamePage() {
                 {/* shine */}
                 <div
                   className="
-                    absolute
-                    inset-0
+                    absolute inset-0
                     bg-gradient-to-r
-                    from-white/0
-                    via-white/10
-                    to-white/0
+                    from-white/0 via-white/10 to-white/0
                     translate-x-[-100%]
                     animate-[shine_5s_linear_infinite]
                   "
@@ -188,12 +193,11 @@ export default function GamePage() {
                     uppercase
 
                     whitespace-nowrap
+                    truncate
 
-                    tracking-[0.18em]
-                    sm:tracking-[0.28em]
+                    tracking-[0.12em] sm:tracking-[0.28em]
 
-                    text-sm
-                    sm:text-2xl
+                    text-[11px] sm:text-2xl
 
                     ${
                       phase === "drawing"
@@ -217,10 +221,10 @@ export default function GamePage() {
 
                       bg-[#ffd166]
 
-                      px-3 py-1
+                      px-2 sm:px-3
+                      py-0.5 sm:py-1
 
-                      text-[10px]
-                      sm:text-sm
+                      text-[9px] sm:text-sm
 
                       font-black
                       tracking-wide
@@ -229,50 +233,51 @@ export default function GamePage() {
                       shadow-[0_3px_0_#000]
 
                       whitespace-nowrap
+
+                      shrink-0
                     "
                   >
                     {wordLengthHint}
                   </div>
                 )}
-
               </div>
-
             </div>
 
-            {/* RIGHT */}
+            {/* RIGHT - TURN */}
             <div
               className="
-                min-w-[90px]
-                sm:min-w-[130px]
-
+                flex-shrink-0
+                min-w-[60px] sm:min-w-[120px]
                 flex justify-end
               "
             >
-
               <div
                 className="
-                  rounded-[18px]
+                  rounded-[14px] sm:rounded-[18px]
                   border-4 border-black
+
                   bg-[#60a5fa]
 
-                  px-4 py-2
+                  px-2 sm:px-4
+                  py-1 sm:py-2
 
                   shadow-[0_4px_0_#000]
 
                   text-black
                   font-black
-                  text-sm sm:text-base
+
+                  text-[10px] sm:text-base
 
                   whitespace-nowrap
+
+                  scale-[0.9] sm:scale-100
                 "
               >
                 TURN #{turnNumber}
               </div>
-
             </div>
 
           </div>
-
         </header>
 
         {/* MAIN AREA */}
