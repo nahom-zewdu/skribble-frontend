@@ -262,182 +262,208 @@ export default function PlayerList({ players }: Props) {
         </div>
 
         {/* Players */}
-        <div
-          className="
-            flex-1
-            overflow-y-auto
-          "
-        >
+          <div
+            className="
+              flex-1
+              overflow-y-auto
+              px-2 pb-2
+            "
+          >
 
-          <div className="flex flex-col">
+            <div
+              className="
+                flex flex-col
+                gap-1.5
+                lg:gap-2
+              "
+            >
 
-            {sortedPlayers.map((p, i) => {
-              const isDrawer =
-                p.id === drawerID
+              {sortedPlayers.map((p, i) => {
+                const isDrawer =
+                  p.id === drawerID
 
-              const isScored =
-                recentGuess?.playerID === p.id
+                const isScored =
+                  recentGuess?.playerID === p.id
 
-              return (
-                <div
-                  key={p.id}
-                  className={`
-                    relative
-                    overflow-hidden
-
-                    flex items-center
-
-                    min-w-0
-
-                    border-b-2 border-black
-
-                    px-1.5 py-1
-
-                    transition-all
-                    duration-700
-                    ease-[cubic-bezier(0.22,1,0.36,1)]
-
-                    ${
-                      isDrawer
-                        ? `
-                          bg-[#ffd166]
-                          text-black
-                        `
-                        : i === 0
-                        ? `
-                          bg-[#60a5fa]
-                          text-black
-                        `
-                        : i === 1
-                        ? `
-                          bg-[#f472b6]
-                          text-black
-                        `
-                        : `
-                          bg-[#3f3f46]
-                          text-white
-                        `
-                    }
-
-                    ${
-                      isScored
-                        ? `
-                          scale-[1.01]
-                        `
-                        : ""
-                    }
-                  `}
-                >
-
-                  {/* score flash */}
-                  {isScored && (
-                    <div
-                      className="
-                        absolute inset-0
-                        bg-white/10
-                        animate-pulse
-                      "
-                    />
-                  )}
-
-                  {/* Rank */}
+                return (
                   <div
-                    className="
+                    key={p.id}
+                    className={`
                       relative
-                      shrink-0
-
-                      w-[26px]
-
-                      text-center
-
-                      text-[10px]
-                      sm:text-[11px]
-
-                      font-black
-                      opacity-80
-                    "
-                  >
-                    #{i + 1}
-                  </div>
-
-                  {/* Name */}
-                  <div
-                    className="
-                      relative
-
-                      flex-1
-                      min-w-0
+                      overflow-hidden
 
                       flex items-center
-                      gap-1
-                    "
+
+                      min-w-0
+
+                      rounded-[14px]
+                      lg:rounded-[18px]
+
+                      border-2
+                      lg:border-4
+                      border-black
+
+                      px-2 py-1.5
+                      lg:px-3 lg:py-2.5
+
+                      shadow-[0_3px_0_#000]
+                      lg:shadow-[0_5px_0_#000]
+
+                      transition-all
+                      duration-700
+                      ease-[cubic-bezier(0.22,1,0.36,1)]
+
+                      ${
+                        isDrawer
+                          ? `
+                            bg-[#ffd166]
+                            text-black
+                          `
+                          : i === 0
+                          ? `
+                            bg-[#60a5fa]
+                            text-black
+                          `
+                          : i === 1
+                          ? `
+                            bg-[#f472b6]
+                            text-black
+                          `
+                          : `
+                            bg-[#3f3f46]
+                            text-white
+                          `
+                      }
+
+                      ${
+                        isScored
+                          ? `
+                            scale-[1.015]
+                            lg:scale-[1.02]
+                          `
+                          : ""
+                      }
+                    `}
                   >
 
-                    <span
-                      className="
-                        block
+                    {/* glow flash */}
+                    {isScored && (
+                      <div
+                        className="
+                          absolute inset-0
+                          bg-white/10
+                          animate-pulse
+                        "
+                      />
+                    )}
 
+                    {/* Rank */}
+                    <div
+                      className="
+                        relative
+
+                        shrink-0
+
+                        w-[26px]
+                        lg:w-[34px]
+
+                        text-center
+
+                        text-[10px]
+                        lg:text-xs
+
+                        font-black
+                        opacity-75
+                      "
+                    >
+                      #{i + 1}
+                    </div>
+
+                    {/* Name */}
+                    <div
+                      className="
+                        relative
+
+                        flex-1
                         min-w-0
 
-                        overflow-hidden
-                        text-ellipsis
-                        whitespace-nowrap
+                        flex items-center
+                        gap-1.5
+                      "
+                    >
 
-                        text-[11px]
+                      <span
+                        className="
+                          block
+
+                          min-w-0
+
+                          overflow-hidden
+                          text-ellipsis
+                          whitespace-nowrap
+
+                          text-[11px]
+                          sm:text-xs
+                          lg:text-[15px]
+
+                          font-black
+                          tracking-tight
+                          leading-none
+                        "
+                      >
+                        {p.name}
+                      </span>
+
+                      {isDrawer && (
+                        <span
+                          className="
+                            shrink-0
+
+                            text-[10px]
+                            lg:text-sm
+
+                            animate-bounce
+                          "
+                        >
+                          ✏️
+                        </span>
+                      )}
+
+                    </div>
+
+                    {/* Score */}
+                    <div
+                      className="
+                        relative
+
+                        shrink-0
+
+                        ml-2
+
+                        min-w-[36px]
+                        lg:min-w-[48px]
+
+                        text-right
+
+                        text-[10px]
                         sm:text-xs
                         lg:text-sm
 
                         font-black
+                        tracking-wide
                         leading-none
                       "
                     >
-                      {p.name}
-                    </span>
-
-                    {isDrawer && (
-                      <span
-                        className="
-                          shrink-0
-                          text-[10px]
-                          sm:text-xs
-                        "
-                      >
-                        ✏️
-                      </span>
-                    )}
+                      {p.score}
+                    </div>
 
                   </div>
+                )
+              })}
 
-                  {/* Score */}
-                  <div
-                    className="
-                      relative
-
-                      shrink-0
-
-                      ml-1
-
-                      min-w-[34px]
-
-                      text-right
-
-                      text-[10px]
-                      sm:text-xs
-
-                      font-black
-                      leading-none
-                    "
-                  >
-                    {p.score}
-                  </div>
-
-                </div>
-              )
-            })}
+            </div>
 
           </div>
-
-        </div>
 
         {/* Invite button */}
         <button
