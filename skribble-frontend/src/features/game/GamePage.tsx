@@ -296,11 +296,15 @@ export default function GamePage() {
           <aside
             className="
               hidden lg:flex
+              lg:flex-col
 
-              w-[290px]
+              w-[300px]
+              xl:w-[320px]
+
               shrink-0
+              min-h-0
 
-              rounded-[30px]
+              rounded-[28px]
               border-4 border-black
 
               bg-[#262626]
