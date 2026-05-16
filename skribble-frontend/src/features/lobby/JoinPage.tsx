@@ -53,7 +53,7 @@ export default function JoinPage() {
       className="
         relative
         min-h-screen
-        overflow-hidden
+        overflow-y-auto
         bg-[#171717]
         text-white
       "
@@ -106,45 +106,40 @@ export default function JoinPage() {
           relative z-10
           min-h-screen
           flex items-center justify-center
-          px-5 py-10
+          px-5 py-8
         "
       >
 
-        <div
-          className="
-            w-full
-            max-w-xl
-          "
-        >
+        <div className="w-full max-w-md">
 
           {/* HERO */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
 
             {/* Logo */}
             <div
               className="
                 inline-flex
                 items-center gap-3
-                px-5 py-3
-                rounded-[28px]
+                px-4 py-2
+                rounded-[24px]
                 border-4 border-black
                 bg-[#ffd166]
-                shadow-[0_8px_0_#000]
+                shadow-[0_6px_0_#000]
                 rotate-[-2deg]
-                mb-7
+                mb-5
               "
             >
 
-              <div className="text-4xl">
+              <div className="text-3xl">
                 🎨
               </div>
 
               <div className="text-left leading-none">
-                <div className="text-2xl font-black text-black tracking-tight">
+                <div className="text-xl font-black text-black tracking-tight">
                   SKRIBBLE
                 </div>
 
-                <div className="text-[11px] font-bold text-black/70 uppercase tracking-widest mt-1">
+                <div className="text-[10px] font-bold text-black/70 uppercase tracking-widest mt-1">
                   chaos multiplayer
                 </div>
               </div>
@@ -153,7 +148,7 @@ export default function JoinPage() {
 
             <h1
               className="
-                text-5xl sm:text-6xl
+                text-4xl sm:text-5xl
                 font-black
                 tracking-tight
                 leading-none
@@ -166,17 +161,16 @@ export default function JoinPage() {
 
             <p
               className="
-                mt-5
-                text-lg
+                mt-4
+                text-sm sm:text-base
                 text-zinc-400
-                max-w-md
+                max-w-sm
                 mx-auto
                 leading-relaxed
               "
             >
-              Party-game energy with live drawing,
-              hilarious guesses, leaderboard battles,
-              and total chaos.
+              Party-game chaos with live drawing,
+              funny guesses, and competitive rounds.
             </p>
 
           </div>
@@ -186,10 +180,10 @@ export default function JoinPage() {
             className="
               relative
               overflow-hidden
-              rounded-[36px]
+              rounded-[32px]
               border-4 border-black
               bg-[#262626]
-              shadow-[0_14px_0_#000]
+              shadow-[0_10px_0_#000]
             "
           >
 
@@ -201,32 +195,32 @@ export default function JoinPage() {
               "
             />
 
-            <div className="p-6 sm:p-8">
+            <div className="p-5 sm:p-6">
 
               {/* Invite Banner */}
               {isInviteJoin && (
                 <div
                   className="
-                    mb-6
-                    rounded-[24px]
+                    mb-5
+                    rounded-[22px]
                     border-4 border-black
                     bg-[#60a5fa]
-                    px-5 py-4
-                    shadow-[0_6px_0_#000]
+                    px-4 py-3
+                    shadow-[0_5px_0_#000]
                     rotate-[-1deg]
                   "
                 >
 
-                  <div className="text-black/70 text-sm font-black uppercase tracking-wider">
+                  <div className="text-black/70 text-xs font-black uppercase tracking-wider">
                     invited room
                   </div>
 
                   <div
                     className="
                       mt-1
-                      text-3xl
+                      text-2xl
                       font-black
-                      tracking-[0.25em]
+                      tracking-[0.2em]
                       text-black
                     "
                   >
@@ -237,7 +231,7 @@ export default function JoinPage() {
               )}
 
               {/* Inputs */}
-              <div className="space-y-5">
+              <div className="space-y-4">
 
                 {/* Name */}
                 <div>
@@ -246,7 +240,7 @@ export default function JoinPage() {
                     className="
                       block
                       mb-2
-                      text-sm
+                      text-xs
                       font-black
                       uppercase
                       tracking-wider
@@ -265,11 +259,11 @@ export default function JoinPage() {
                     placeholder="PixelLegend99"
                     className="
                       w-full
-                      rounded-[22px]
+                      rounded-[18px]
                       border-4 border-black
                       bg-[#f4f4f5]
-                      px-5 py-4
-                      text-lg
+                      px-4 py-3
+                      text-base
                       font-bold
                       text-black
                       outline-none
@@ -277,7 +271,7 @@ export default function JoinPage() {
                       placeholder:text-zinc-500
                       focus:translate-y-[2px]
                       focus:shadow-none
-                      shadow-[0_6px_0_#000]
+                      shadow-[0_5px_0_#000]
                     "
                   />
 
@@ -290,7 +284,7 @@ export default function JoinPage() {
                     className="
                       block
                       mb-2
-                      text-sm
+                      text-xs
                       font-black
                       uppercase
                       tracking-wider
@@ -312,16 +306,16 @@ export default function JoinPage() {
                     placeholder="OPTIONAL"
                     className={`
                       w-full
-                      rounded-[22px]
+                      rounded-[18px]
                       border-4 border-black
-                      px-5 py-4
-                      text-lg
+                      px-4 py-3
+                      text-base
                       font-black
                       uppercase
                       tracking-[0.2em]
                       outline-none
                       transition-all
-                      shadow-[0_6px_0_#000]
+                      shadow-[0_5px_0_#000]
 
                       ${
                         isInviteJoin
@@ -345,7 +339,7 @@ export default function JoinPage() {
                       className="
                         mt-2
                         px-1
-                        text-sm
+                        text-xs
                         text-zinc-500
                       "
                     >
@@ -365,21 +359,21 @@ export default function JoinPage() {
                     connect("private_join")
                   }
                   className="
-                    mt-7
+                    mt-6
                     w-full
-                    rounded-[24px]
+                    rounded-[20px]
                     border-4 border-black
                     bg-[#ffd166]
-                    py-4
-                    text-xl
+                    py-3
+                    text-lg
                     font-black
                     text-black
-                    shadow-[0_8px_0_#000]
+                    shadow-[0_6px_0_#000]
                     transition-all
                     hover:translate-y-[2px]
-                    hover:shadow-[0_6px_0_#000]
-                    active:translate-y-[6px]
-                    active:shadow-[0_2px_0_#000]
+                    hover:shadow-[0_4px_0_#000]
+                    active:translate-y-[5px]
+                    active:shadow-[0_1px_0_#000]
                   "
                 >
                   JOIN ROOM
@@ -394,21 +388,21 @@ export default function JoinPage() {
                       connect("public")
                     }
                     className="
-                      mt-7
+                      mt-6
                       w-full
-                      rounded-[24px]
+                      rounded-[20px]
                       border-4 border-black
                       bg-[#ffd166]
-                      py-4
-                      text-xl
+                      py-3
+                      text-lg
                       font-black
                       text-black
-                      shadow-[0_8px_0_#000]
+                      shadow-[0_6px_0_#000]
                       transition-all
                       hover:translate-y-[2px]
-                      hover:shadow-[0_6px_0_#000]
-                      active:translate-y-[6px]
-                      active:shadow-[0_2px_0_#000]
+                      hover:shadow-[0_4px_0_#000]
+                      active:translate-y-[5px]
+                      active:shadow-[0_1px_0_#000]
                     "
                   >
                     PLAY PUBLIC
@@ -419,7 +413,7 @@ export default function JoinPage() {
                     className="
                       flex items-center
                       gap-4
-                      my-7
+                      my-5
                     "
                   >
 
@@ -427,7 +421,7 @@ export default function JoinPage() {
 
                     <span
                       className="
-                        text-xs
+                        text-[10px]
                         font-black
                         tracking-[0.2em]
                         text-zinc-500
@@ -441,24 +435,25 @@ export default function JoinPage() {
                   </div>
 
                   {/* Room Buttons */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3">
 
                     <button
                       onClick={() =>
                         connect("private_join")
                       }
                       className="
-                        rounded-[22px]
+                        rounded-[18px]
                         border-4 border-black
                         bg-[#3f3f46]
-                        py-4
+                        py-3
+                        text-sm
                         font-black
                         text-white
-                        shadow-[0_6px_0_#000]
+                        shadow-[0_5px_0_#000]
                         transition-all
                         hover:translate-y-[2px]
-                        hover:shadow-[0_4px_0_#000]
-                        active:translate-y-[5px]
+                        hover:shadow-[0_3px_0_#000]
+                        active:translate-y-[4px]
                         active:shadow-[0_1px_0_#000]
                       "
                     >
@@ -470,17 +465,18 @@ export default function JoinPage() {
                         connect("private_create")
                       }
                       className="
-                        rounded-[22px]
+                        rounded-[18px]
                         border-4 border-black
                         bg-[#4ade80]
-                        py-4
+                        py-3
+                        text-sm
                         font-black
                         text-black
-                        shadow-[0_6px_0_#000]
+                        shadow-[0_5px_0_#000]
                         transition-all
                         hover:translate-y-[2px]
-                        hover:shadow-[0_4px_0_#000]
-                        active:translate-y-[5px]
+                        hover:shadow-[0_3px_0_#000]
+                        active:translate-y-[4px]
                         active:shadow-[0_1px_0_#000]
                       "
                     >
