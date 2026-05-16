@@ -52,6 +52,8 @@ type GameState = {
   recentGuess?: {
     playerID: string
     score: number
+    drawerID: string
+    drawerPoints: number
   }
 
   setState: (data: Partial<GameState>) => void
