@@ -201,14 +201,14 @@ export default function PlayerList({ players }: Props) {
         className="
           relative z-10
           flex h-full flex-col
-          p-3 sm:p-4
+          min-w-0
         "
       >
 
         {/* Header */}
         <div
           className="
-            mb-4
+            px-3 pt-3 pb-2
             flex items-center justify-between
             gap-2
           "
@@ -266,11 +266,10 @@ export default function PlayerList({ players }: Props) {
           className="
             flex-1
             overflow-y-auto
-            pr-1
           "
         >
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
 
             {sortedPlayers.map((p, i) => {
               const isDrawer =
@@ -280,21 +279,19 @@ export default function PlayerList({ players }: Props) {
                 recentGuess?.playerID === p.id
 
               return (
-               <div
+                <div
                   key={p.id}
                   className={`
                     relative
                     overflow-hidden
 
-                    flex items-center justify-between
+                    flex items-center
 
-                    rounded-[18px]
-                    border-4 border-black
+                    min-w-0
 
-                    px-2 py-1.5
-                    sm:px-3 sm:py-2
+                    border-b-2 border-black
 
-                    shadow-[0_4px_0_#000]
+                    px-1.5 py-1
 
                     transition-all
                     duration-700
@@ -325,14 +322,14 @@ export default function PlayerList({ players }: Props) {
                     ${
                       isScored
                         ? `
-                          scale-[1.02]
+                          scale-[1.01]
                         `
                         : ""
                     }
                   `}
                 >
 
-                  {/* Pulse glow */}
+                  {/* score flash */}
                   {isScored && (
                     <div
                       className="
@@ -343,118 +340,95 @@ export default function PlayerList({ players }: Props) {
                     />
                   )}
 
-                  {/* LEFT SIDE */}
+                  {/* Rank */}
                   <div
                     className="
                       relative
-                      flex items-center
-                      gap-1.5
-                      min-w-0
-                      flex-1
+                      shrink-0
+
+                      w-[26px]
+
+                      text-center
+
+                      text-[10px]
+                      sm:text-[11px]
+
+                      font-black
+                      opacity-80
                     "
                   >
-
-                    {/* Rank */}
-                    <div
-                      className="
-                        w-5 h-5
-                        sm:w-6 sm:h-6
-
-                        shrink-0
-
-                        rounded-full
-                        border-2 border-black
-
-                        bg-black/10
-
-                        flex items-center justify-center
-
-                        text-[9px]
-                        sm:text-[10px]
-                        font-black
-                      "
-                    >
-                      #{i + 1}
-                    </div>
-
-                    {/* Name */}
-                    <div
-                      className="
-                        min-w-0
-                        flex items-center
-                        gap-1
-                        flex-1
-                      "
-                    >
-
-                      <span
-                        className="
-                          truncate
-                          flex-1
-
-                          text-[11px]
-                          sm:text-xs
-                          lg:text-sm
-
-                          font-black
-                          leading-none
-                        "
-                      >
-                        {p.name}
-                      </span>
-
-                      {isDrawer && (
-                        <span
-                          className="
-                            shrink-0
-                            text-xs
-                            sm:text-sm
-                            animate-bounce
-                          "
-                        >
-                          ✏️
-                        </span>
-                      )}
-
-                    </div>
-
+                    #{i + 1}
                   </div>
 
-                  {/* SCORE */}
+                  {/* Name */}
                   <div
                     className="
                       relative
-                      ml-1
-                      shrink-0
+
+                      flex-1
+                      min-w-0
+
+                      flex items-center
+                      gap-1
                     "
                   >
 
-                    <div
+                    <span
                       className="
-                        min-w-[40px]
-                        sm:min-w-[48px]
+                        block
 
-                        rounded-full
-                        border-2 border-black
+                        min-w-0
 
-                        bg-black/10
+                        overflow-hidden
+                        text-ellipsis
+                        whitespace-nowrap
 
-                        px-1.5 py-0.5
-                        sm:px-2 sm:py-1
-
-                        text-center
-
-                        text-[10px]
+                        text-[11px]
                         sm:text-xs
+                        lg:text-sm
 
                         font-black
-                        tracking-wide
                         leading-none
                       "
                     >
-                      {p.score}
-                    </div>
+                      {p.name}
+                    </span>
 
+                    {isDrawer && (
+                      <span
+                        className="
+                          shrink-0
+                          text-[10px]
+                          sm:text-xs
+                        "
+                      >
+                        ✏️
+                      </span>
+                    )}
+
+                  </div>
+
+                  {/* Score */}
+                  <div
+                    className="
+                      relative
+
+                      shrink-0
+
+                      ml-1
+
+                      min-w-[34px]
+
+                      text-right
+
+                      text-[10px]
+                      sm:text-xs
+
+                      font-black
+                      leading-none
+                    "
+                  >
+                    {p.score}
                   </div>
 
                 </div>
@@ -475,7 +449,7 @@ export default function PlayerList({ players }: Props) {
             setCopied(true)
           }}
           className="
-            mt-4
+            mx-2 mb-2 mt-3
 
             rounded-[18px]
             border-4 border-black
