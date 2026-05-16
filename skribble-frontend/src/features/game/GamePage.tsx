@@ -202,28 +202,29 @@ export default function GamePage() {
                     <div
                       key={wordLengthHint}
                       className="
-                        mt-2
-
                         inline-flex
                         items-center
                         justify-center
 
-                        px-3 py-1
+                        shrink-0
+
+                        px-2 py-[2px]
 
                         rounded-full
-                        border-4 border-black
+                        border-2 border-black
 
                         bg-[#ffd166]
 
-                        text-[10px] sm:text-sm
+                        text-[10px] sm:text-xs
                         font-black
 
                         tracking-wide
                         text-black
 
-                        shadow-[0_3px_0_#000]
+                        shadow-[0_2px_0_#000]
 
                         whitespace-nowrap
+                        leading-none
                       "
                     >
                       {wordLengthHint}
