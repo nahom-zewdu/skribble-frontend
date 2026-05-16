@@ -175,7 +175,7 @@ export function initMessageHandler() {
         break
 
       case "chat":
-        store.setState({
+        useGameStore.setState({
           messages: [
             ...store.messages,
             {
@@ -189,7 +189,7 @@ export function initMessageHandler() {
         break
 
       case "system":
-        store.setState({
+        useGameStore.setState({
           messages: [
             ...store.messages,
             {
@@ -202,7 +202,7 @@ export function initMessageHandler() {
         break
         
       case "hint_revealed":
-        store.setState({
+        useGameStore.setState({
           maskedWord: msg.data.maskedWord,
           wordLengthHint: msg.data.wordLengthHint,
         })
