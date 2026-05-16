@@ -323,6 +323,7 @@ export default function CanvasBoard() {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
+          onPointerCancel={handlePointerUp}
           style={{
             cursor: isDrawer ? "crosshair" : "not-allowed",
           }}
