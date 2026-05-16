@@ -329,9 +329,15 @@ export default function CanvasBoard() {
         />
       </div>
 
-      {isDrawer && hoverPoint && (
+      {isDrawer && hoverPoint && containerRef.current && (
         <div
-          className="absolute rounded-full pointer-events-none border border-slate-400"
+          className="
+            absolute
+            rounded-full
+            pointer-events-none
+            border border-slate-400
+            z-20
+          "
           style={{
             left: hoverPoint.x - thickness / 2,
             top: hoverPoint.y - thickness / 2,
