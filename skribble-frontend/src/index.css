@@ -1,106 +1,628 @@
+/* src/index.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* optional reset */
-html, body, #root {
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+html,
+body,
+#root {
   height: 100%;
 }
 
-@keyframes hintReveal {
+body {
+  margin: 0;
+  overflow: hidden;
+
+  color: #f8fafc;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(255, 170, 80, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(45, 212, 191, 0.06),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #16181d 0%,
+      #101216 100%
+    );
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+/* =========================================================
+   GAME THEME VARIABLES
+========================================================= */
+
+:root {
+  --bg-dark: #101216;
+  --bg-panel: #1a1d24;
+  --bg-panel-light: #232833;
+
+  --paper: #f6f1e8;
+  --paper-2: #ede5d8;
+
+  --accent-yellow: #ffcb52;
+  --accent-orange: #ff8a3d;
+  --accent-red: #ff5f57;
+  --accent-green: #3ddc97;
+  --accent-cyan: #4fd1c5;
+  --accent-blue: #6ea8fe;
+
+  --text-soft: #b8c0cc;
+
+  --shadow-lg:
+    0 14px 40px rgba(0, 0, 0, 0.35);
+
+  --shadow-panel:
+    0 10px 30px rgba(0, 0, 0, 0.28);
+
+  --shadow-paper:
+    0 8px 0 rgba(0, 0, 0, 0.18),
+    0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+/* =========================================================
+   CUSTOM SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2c3340;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3c4656;
+}
+
+/* =========================================================
+   GLOBAL TEXTURE OVERLAY
+========================================================= */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.08;
+
+  background-image:
+    radial-gradient(#ffffff 0.7px, transparent 0.7px);
+
+  background-size: 12px 12px;
+
+  mix-blend-mode: overlay;
+}
+
+/* =========================================================
+   GAME PANELS
+========================================================= */
+
+.game-panel {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0)
+    ),
+    var(--bg-panel);
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+
+  box-shadow: var(--shadow-panel);
+
+  border-radius: 28px;
+
+  backdrop-filter: blur(10px);
+}
+
+.game-panel-light {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0)
+    ),
+    var(--bg-panel-light);
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+
+  border-radius: 24px;
+}
+
+.paper-panel {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.7),
+      rgba(255,255,255,0.1)
+    ),
+    var(--paper);
+
+  color: #111827;
+
+  border-radius: 30px;
+
+  box-shadow: var(--shadow-paper);
+
+  border:
+    2px solid rgba(0,0,0,0.06);
+}
+
+/* =========================================================
+   GAME BUTTONS
+========================================================= */
+
+.game-btn {
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  font-weight: 800;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease;
+
+  box-shadow:
+    0 6px 0 rgba(0,0,0,0.22);
+}
+
+.game-btn:hover {
+  transform:
+    translateY(-2px)
+    scale(1.01);
+
+  filter: brightness(1.04);
+}
+
+.game-btn:active {
+  transform:
+    translateY(4px)
+    scale(0.99);
+
+  box-shadow:
+    0 2px 0 rgba(0,0,0,0.25);
+}
+
+.game-btn-primary {
+  background:
+    linear-gradient(
+      180deg,
+      #ffcb52,
+      #ff9f43
+    );
+
+  color: #1f2937;
+}
+
+.game-btn-secondary {
+  background:
+    linear-gradient(
+      180deg,
+      #2b3140,
+      #232833
+    );
+
+  color: white;
+}
+
+.game-btn-success {
+  background:
+    linear-gradient(
+      180deg,
+      #42e695,
+      #31c48d
+    );
+
+  color: #062c1d;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.game-input {
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  padding: 16px 18px;
+
+  border-radius: 22px;
+
+  color: white;
+
+  background:
+    rgba(255,255,255,0.05);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.game-input:focus {
+  border-color:
+    rgba(255, 203, 82, 0.5);
+
+  background:
+    rgba(255,255,255,0.08);
+
+  transform:
+    translateY(-1px);
+}
+
+.game-input::placeholder {
+  color: #7f8896;
+}
+
+/* =========================================================
+   TITLE STYLES
+========================================================= */
+
+.game-title {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+
+  font-weight: 900;
+
+  line-height: 0.9;
+
+  letter-spacing: -0.05em;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fff7d6 0%,
+      #ffcb52 55%,
+      #ff9f43 100%
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 10px 40px rgba(255, 203, 82, 0.2);
+}
+
+.game-subtitle {
+  color: var(--text-soft);
+
+  font-size: 1rem;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   FLOATING ANIMATIONS
+========================================================= */
+
+@keyframes floaty {
   0% {
-    transform: scale(0.92);
-    opacity: 0.4;
+    transform:
+      translateY(0px)
+      rotate(0deg);
   }
 
   50% {
-    transform: scale(1.08);
+    transform:
+      translateY(-6px)
+      rotate(1deg);
+  }
+
+  100% {
+    transform:
+      translateY(0px)
+      rotate(0deg);
+  }
+}
+
+.animate-floaty {
+  animation:
+    floaty 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   HINT REVEAL
+========================================================= */
+
+@keyframes hintReveal {
+  0% {
+    transform:
+      scale(0.85)
+      rotate(-2deg);
+
+    opacity: 0;
+  }
+
+  50% {
+    transform:
+      scale(1.08)
+      rotate(1deg);
+
     opacity: 1;
   }
 
   100% {
-    transform: scale(1);
+    transform:
+      scale(1)
+      rotate(0deg);
+
     opacity: 1;
   }
 }
 
 .hint-reveal {
-  animation: hintReveal 0.45s ease;
+  animation:
+    hintReveal 0.5s
+    cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Score Pop Animation */
-@keyframes score-pop {
-  0% {
-    opacity: 0;
-    transform: translateY(10px) scale(0.8);
-  }
+/* =========================================================
+   CANVAS ENTER
+========================================================= */
 
-  20% {
-    opacity: 1;
-    transform: translateY(0px) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateY(-24px) scale(1.15);
-  }
-}
-
-.animate-score-pop {
-  animation: score-pop 1.8s ease-out forwards;
-}
-
-/* Canvas Enter Animation */
 @keyframes canvas-enter {
   from {
     opacity: 0;
-    transform: scale(0.97);
+
+    transform:
+      translateY(16px)
+      scale(0.96)
+      rotate(-1deg);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
+
+    transform:
+      translateY(0px)
+      scale(1)
+      rotate(0deg);
   }
 }
 
 .animate-canvas-enter {
-  animation: canvas-enter 300ms ease-out;
+  animation:
+    canvas-enter 420ms
+    cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Score Bubble Rise Animation */
-@keyframes score-bubble-rise {
+/* =========================================================
+   CHAT MESSAGE POP
+========================================================= */
+
+@keyframes chat-pop {
   0% {
-    transform:
-      translateX(-50%)
-      translateY(40px)
-      scale(0.7);
-
     opacity: 0;
-  }
 
-  10% {
-    opacity: 1;
-  }
-
-  40% {
     transform:
-      translateX(-50%)
-      translateY(-80px)
-      scale(1);
+      translateY(10px)
+      scale(0.95);
   }
 
   100% {
+    opacity: 1;
+
+    transform:
+      translateY(0px)
+      scale(1);
+  }
+}
+
+.animate-chat-pop {
+  animation:
+    chat-pop 240ms ease;
+}
+
+/* =========================================================
+   LEADERBOARD REORDER
+========================================================= */
+
+@keyframes leaderboard-bump {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform:
+      scale(1.04)
+      rotate(-0.4deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-leaderboard-bump {
+  animation:
+    leaderboard-bump 700ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+   SCORE BUBBLE FLOAT
+========================================================= */
+
+@keyframes score-bubble-rise {
+  0% {
+    opacity: 0;
+
     transform:
       translateX(-50%)
-      translateY(-260px)
-      scale(1.08);
+      translateY(80px)
+      scale(0.6);
+  }
 
+  12% {
+    opacity: 1;
+  }
+
+  35% {
+    transform:
+      translateX(-50%)
+      translateY(-40px)
+      scale(1);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
     opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(-280px)
+      scale(1.15);
   }
 }
 
 .animate-score-bubble-rise {
-  animation: score-bubble-rise 2.3s
+  animation:
+    score-bubble-rise 2.4s
     cubic-bezier(0.22, 1, 0.36, 1)
     forwards;
+}
+
+/* =========================================================
+   SOFT GLOW
+========================================================= */
+
+.soft-glow-yellow {
+  box-shadow:
+    0 0 0 rgba(255,255,255,0),
+    0 0 40px rgba(255, 203, 82, 0.22);
+}
+
+.soft-glow-cyan {
+  box-shadow:
+    0 0 0 rgba(255,255,255,0),
+    0 0 40px rgba(79, 209, 197, 0.18);
+}
+
+/* =========================================================
+   PAPER CANVAS LOOK
+========================================================= */
+
+.canvas-paper {
+  position: relative;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffdf8 0%,
+      #f8f2e8 100%
+    );
+
+  border-radius: 32px;
+
+  overflow: hidden;
+
+  box-shadow: var(--shadow-paper);
+}
+
+.canvas-paper::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.18;
+
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      rgba(0,0,0,0.08) 0.6px,
+      transparent 0.6px
+    );
+
+  background-size: 10px 10px;
+}
+
+/* =========================================================
+   STICKER BADGES
+========================================================= */
+
+.sticker-badge {
+  border-radius: 999px;
+
+  padding:
+    6px 14px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.04em;
+
+  transform: rotate(-2deg);
+
+  box-shadow:
+    0 5px 16px rgba(0,0,0,0.18);
+}
+
+/* =========================================================
+   PLAYER CARD HOVER
+========================================================= */
+
+.player-card {
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    background 240ms ease;
+}
+
+.player-card:hover {
+  transform:
+    translateY(-2px)
+    rotate(-0.2deg);
+}
+
+/* =========================================================
+   MOBILE SAFE
+========================================================= */
+
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
 }
