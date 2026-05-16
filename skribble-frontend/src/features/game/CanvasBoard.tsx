@@ -29,6 +29,7 @@ const COLORS = [
 export default function CanvasBoard() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
 
   const drawingRef = useRef(false)
   const bufferRef = useRef<Point[]>([])
@@ -281,14 +282,15 @@ export default function CanvasBoard() {
 
       {/* Canvas */}
       <div
-        className="
-          relative
-          rounded-3xl
-          p-3
-          w-full
-          max-w-[860px]
-        "
-      >
+          ref={containerRef}
+          className="
+            relative
+            rounded-3xl
+            p-3
+            w-full
+            max-w-[860px]
+          "
+        >
         {!isDrawer && phase === "drawing" && (
           <div
             className="
