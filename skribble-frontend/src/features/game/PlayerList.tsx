@@ -215,19 +215,6 @@ export default function PlayerList({ players }: Props) {
         >
 
           <div>
-
-            <div
-              className="
-                text-[10px]
-                font-black
-                uppercase
-                tracking-[0.25em]
-                text-zinc-500
-              "
-            >
-              live ranking
-            </div>
-
             <h2
               className="
                 text-xl
@@ -240,23 +227,6 @@ export default function PlayerList({ players }: Props) {
               Leaderboard
             </h2>
 
-          </div>
-
-          <div
-            className="
-              rounded-full
-              border-4 border-black
-              bg-[#ffd166]
-              px-3 py-1
-              text-xs
-              font-black
-              text-black
-              shadow-[0_4px_0_#000]
-              shrink-0
-            "
-          >
-            {players.length}
-            P
           </div>
 
         </div>
