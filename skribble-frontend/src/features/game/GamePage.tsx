@@ -148,7 +148,7 @@ export default function GamePage() {
                   gap-2 sm:gap-3
 
                   px-3 sm:px-6
-                  py-2 sm:py-3
+                  py-2 sm:py-2
 
                   rounded-[24px]
                   border-4 border-black
@@ -164,19 +164,18 @@ export default function GamePage() {
 
                   ${
                     phase === "drawing"
-                      ? "bg-[#f4f4f5]"
-                      : "bg-[#3f3f46]"
+                      ? "bg-[#f4f4f5] text-black"
+                      : "bg-[#3f3f46] text-white"
                   }
                 `}
               >
-
                 {/* shine */}
                 <div className="relative z-10 flex flex-col items-center justify-center min-w-0 w-full">
   
                   {/* WORD */}
                   <div
                     key={maskedWord}
-                    className={`
+                    className="
                       hint-reveal
 
                       font-black
@@ -193,7 +192,7 @@ export default function GamePage() {
                       break-words
 
                       max-w-full
-                    `}
+                    "
                   >
                     {maskedWord || "WAITING"}
                   </div>
