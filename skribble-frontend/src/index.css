@@ -66,3 +66,41 @@ html, body, #root {
 .animate-canvas-enter {
   animation: canvas-enter 300ms ease-out;
 }
+
+/* Score Bubble Rise Animation */
+@keyframes score-bubble-rise {
+  0% {
+    transform:
+      translateX(-50%)
+      translateY(40px)
+      scale(0.7);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  40% {
+    transform:
+      translateX(-50%)
+      translateY(-80px)
+      scale(1);
+  }
+
+  100% {
+    transform:
+      translateX(-50%)
+      translateY(-260px)
+      scale(1.08);
+
+    opacity: 0;
+  }
+}
+
+.animate-score-bubble-rise {
+  animation: score-bubble-rise 2.3s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
