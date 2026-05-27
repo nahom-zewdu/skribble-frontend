@@ -28,7 +28,9 @@ class GameSocket {
       params.append("room", room)
     }
 
-    const url = `ws://localhost:8080/ws?${params.toString()}`
+    const WS_BASE = import.meta.env.VITE_WS_URL ?? "ws://localhost:8080/ws"
+
+    const url = `${WS_BASE}/ws?${params.toString()}`
 
     this.ws = new WebSocket(url)
 
