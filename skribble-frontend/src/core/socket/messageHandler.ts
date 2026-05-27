@@ -208,7 +208,7 @@ export function initMessageHandler() {
               id: crypto.randomUUID(),
               sender: msg.data.sender,
               text: msg.data.text,
-              type: "chat",
+              type: "chat" as const,
             },
           ].slice(-MAX_MESSAGES),
         })
