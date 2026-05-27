@@ -225,7 +225,7 @@ export function initMessageHandler() {
             {
               id: crypto.randomUUID(),
               text: msg.data.text,
-              type: "system",
+              type: "system" as const,
             },
           ].slice(-MAX_MESSAGES),
         })
