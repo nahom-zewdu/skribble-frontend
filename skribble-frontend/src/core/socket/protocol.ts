@@ -36,6 +36,7 @@ export type ServerMessage =
   | { type: "game_snapshot"; data: GameSnapshot }
   | { type: "turn_started"; data: TurnStarted }
   | { type: "word_selection_started"; data: WordSelectionStarted }
+  | { type: "hint_revealed"; data: { maskedWord: string, wordLengthHint?: string } }
   | { type: "drawing_started"; data: DrawingStarted }
   | { type: "chat"; data: ChatMessage }
   | { type: "correct_guess"; data: CorrectGuess }
