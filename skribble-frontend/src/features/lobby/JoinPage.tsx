@@ -158,7 +158,7 @@ export default function JoinPage() {
 
               <div className="leading-none">
                 <div className="text-2xl font-black text-black tracking-tight">
-                  SKRIBBLE
+                  guess-it
                 </div>
 
                 <div className="text-[10px] font-black text-black/70 uppercase tracking-[0.25em] mt-1">
