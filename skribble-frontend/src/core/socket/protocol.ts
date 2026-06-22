@@ -56,6 +56,8 @@ export type ClientMessage =
   | { type: "draw_move"; data: DrawMoveMessage }
   | { type: "draw_end" }
   | { type: "clear_canvas" }
+  | { type: "ping"; data: { ts: number } }
+  | { type: "latency"; data: { value: number } }
 
 export type Player = {
   id: string
