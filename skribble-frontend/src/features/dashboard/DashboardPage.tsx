@@ -5,130 +5,215 @@
 import { useEffect, useState } from "react"
 
 type MetricsResponse = {
-  metrics: {
-    ActiveConnections: number
-    PeakConnections: number
-    ActiveRooms: number
-    PeakRooms: number
-    TotalMessages: number
-    TotalBytes: number
-    DrawMessages: number
-    ChatMessages: number
-  }
-  latency: {
-    min: number
-    p50: number
-    p95: number
-    p99: number
-    max: number
-  }
+  activeConnections: number
+  peakConnections: number
+  activeRooms: number
+  peakRooms: number
+  totalMessages: number
+  totalBytes: number
+  drawMessages: number
+  chatMessages: number
+}
+
+type Latency = {
+  min: number
+  p50: number
+  p95: number
+  p99: number
+  max: number
+}
+
+type Response = {
+  metrics: MetricsResponse
+  latency: Latency
+}
+
+function Card({
+  title,
+  value,
+  sub,
+}: {
+  title: string
+  value: string | number
+  sub?: string
+}) {
+  return (
+    <div className="game-panel p-5 flex flex-col gap-2">
+      <div className="text-xs uppercase tracking-widest text-gray-400">
+        {title}
+      </div>
+
+      <div className="text-3xl font-bold text-white">
+        {value}
+      </div>
+
+      {sub && (
+        <div className="text-xs text-[var(--text-soft)]">
+          {sub}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function LatencyCard({ latency }: { latency: Latency }) {
+  const band =
+    latency.p95 < 50
+      ? "good"
+      : latency.p95 < 120
+      ? "ok"
+      : "bad"
+
+  const color =
+    band === "good"
+      ? "text-green-400"
+      : band === "ok"
+      ? "text-yellow-400"
+      : "text-red-400"
+
+  return (
+    <div className="game-panel p-5 col-span-2">
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-xs uppercase tracking-widest text-gray-400">
+          Latency (ms)
+        </div>
+
+        <div className={`text-xs font-bold ${color}`}>
+          {band.toUpperCase()}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-5 gap-3 text-center">
+        <div>
+          <div className="text-xs text-gray-400">min</div>
+          <div className="font-bold">{latency.min}</div>
+        </div>
+
+        <div>
+          <div className="text-xs text-gray-400">p50</div>
+          <div className="font-bold">{latency.p50}</div>
+        </div>
+
+        <div>
+          <div className="text-xs text-gray-400">p95</div>
+          <div className="font-bold text-yellow-300">
+            {latency.p95}
+          </div>
+        </div>
+
+        <div>
+          <div className="text-xs text-gray-400">p99</div>
+          <div className="font-bold text-orange-300">
+            {latency.p99}
+          </div>
+        </div>
+
+        <div>
+          <div className="text-xs text-gray-400">max</div>
+          <div className="font-bold text-red-300">
+            {latency.max}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default function DashboardPage() {
-  const [data, setData] =
-    useState<MetricsResponse | null>(null)
-
-  const [error, setError] =
-    useState<string | null>(null)
+  const [data, setData] = useState<Response | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-
     const API_BASE =
       import.meta.env.VITE_API_URL ??
       "http://localhost:8080"
 
     const load = async () => {
       try {
-        const response = await fetch(
-          `${API_BASE}/metrics`
-        )
-
-        if (!response.ok) {
-          throw new Error(
-            `HTTP ${response.status}`
-          )
-        }
-
-        const contentType =
-          response.headers.get(
-            "content-type"
-          )
-
-        if (
-          !contentType?.includes(
-            "application/json"
-          )
-        ) {
-          throw new Error(
-            "Response is not JSON"
-          )
-        }
-
-        const json =
-          await response.json()
+        const res = await fetch(`${API_BASE}/metrics`)
+        const json = await res.json()
 
         setData(json)
         setError(null)
-
-      } catch (err) {
-        console.error(err)
-
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Failed to load metrics"
-        )
+      } catch (e) {
+        setError("Failed to load metrics")
       }
     }
 
     load()
-
-    const interval =
-      setInterval(load, 5000)
-
-    return () =>
-      clearInterval(interval)
-
+    const t = setInterval(load, 5000)
+    return () => clearInterval(t)
   }, [])
 
   if (error) {
     return (
-      <div style={{padding:20}}>
-        Error loading metrics:
-        <pre>{error}</pre>
+      <div className="p-6 text-red-400">
+        Error: {error}
       </div>
     )
   }
 
   if (!data) {
     return (
-      <div style={{padding:20}}>
+      <div className="p-6 text-gray-300">
         Loading metrics...
       </div>
     )
   }
 
+  const m = data.metrics
+  const l = data.latency
+
   return (
-    <div style={{padding:20}}>
-      <h2>System Metrics</h2>
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="game-title text-4xl">
+          System Dashboard
+        </h1>
+        <p className="game-subtitle mt-2">
+          live infrastructure signals
+        </p>
+      </div>
 
-      <pre>
-        {JSON.stringify(
-          data.metrics,
-          null,
-          2
-        )}
-      </pre>
+      {/* Metrics Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card
+          title="Active Connections"
+          value={m.activeConnections}
+        />
+        <Card
+          title="Peak Connections"
+          value={m.peakConnections}
+        />
+        <Card
+          title="Active Rooms"
+          value={m.activeRooms}
+        />
+        <Card
+          title="Total Messages"
+          value={m.totalMessages}
+        />
+        <Card
+          title="Total Bytes"
+          value={`${(m.totalBytes / 1024).toFixed(1)} KB`}
+        />
+        <Card
+          title="Draw Messages"
+          value={m.drawMessages}
+        />
+        <Card
+          title="Chat Messages"
+          value={m.chatMessages}
+        />
+        <Card
+          title="Peak Rooms"
+          value={m.peakRooms}
+        />
+      </div>
 
-      <h2>Latency</h2>
-
-      <pre>
-        {JSON.stringify(
-          data.latency,
-          null,
-          2
-        )}
-      </pre>
+      {/* Latency */}
+      <LatencyCard latency={l} />
     </div>
   )
 }
