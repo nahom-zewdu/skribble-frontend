@@ -29,7 +29,7 @@ class GameSocket {
       }))
     }, 10000)
   }
-  
+
   // connect establishes a new WebSocket connection to the server with the specified parameters (name, mode, and optional room).
   connect(name: string,
           mode: "public" | "private_create" | "private_join",
@@ -69,6 +69,18 @@ class GameSocket {
     this.ws.onmessage = (event) => {
       const msg: ServerMessage = JSON.parse(event.data)
 
+      // latency handling
+      if (msg.type === "pong") {
+        const latency = Date.now() - msg.data.ts
+
+        this.send({
+          type: "latency",
+          data: { value: latency }
+        })
+
+        return
+      }
+      
       if (
         msg.type === "draw_start" ||
         msg.type === "draw_move" ||
