@@ -25,45 +25,110 @@ type MetricsResponse = {
 }
 
 export default function DashboardPage() {
-  const [data, setData] = useState<MetricsResponse | null>(null)
+  const [data, setData] =
+    useState<MetricsResponse | null>(null)
+
+  const [error, setError] =
+    useState<string | null>(null)
 
   useEffect(() => {
+
+    const API_BASE =
+      import.meta.env.VITE_API_URL ??
+      "http://localhost:8080"
+
     const load = async () => {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/metrics`
-      )
-      const json = await res.json()
-      setData(json)
+      try {
+        const response = await fetch(
+          `${API_BASE}/metrics`
+        )
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP ${response.status}`
+          )
+        }
+
+        const contentType =
+          response.headers.get(
+            "content-type"
+          )
+
+        if (
+          !contentType?.includes(
+            "application/json"
+          )
+        ) {
+          throw new Error(
+            "Response is not JSON"
+          )
+        }
+
+        const json =
+          await response.json()
+
+        setData(json)
+        setError(null)
+
+      } catch (err) {
+        console.error(err)
+
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Failed to load metrics"
+        )
+      }
     }
 
     load()
-    const interval = setInterval(load, 5000)
 
-    return () => clearInterval(interval)
+    const interval =
+      setInterval(load, 5000)
+
+    return () =>
+      clearInterval(interval)
+
   }, [])
 
-  if (!data) return <div>Loading metrics...</div>
+  if (error) {
+    return (
+      <div style={{padding:20}}>
+        Error loading metrics:
+        <pre>{error}</pre>
+      </div>
+    )
+  }
 
-  const { metrics, latency } = data
+  if (!data) {
+    return (
+      <div style={{padding:20}}>
+        Loading metrics...
+      </div>
+    )
+  }
 
   return (
-    <div style={{ padding: 20, color: "#fff" }}>
+    <div style={{padding:20}}>
       <h2>System Metrics</h2>
 
-      <pre>{JSON.stringify(metrics, null, 2)}</pre>
+      <pre>
+        {JSON.stringify(
+          data.metrics,
+          null,
+          2
+        )}
+      </pre>
 
-      <h2>Latency (ms)</h2>
-      <pre>{JSON.stringify(latency, null, 2)}</pre>
+      <h2>Latency</h2>
 
-      <div style={{ marginTop: 20 }}>
-        <b>Quick interpretation:</b>
-        <ul>
-          <li>Peak load = {metrics.PeakConnections}</li>
-          <li>Total events = {metrics.TotalMessages}</li>
-          <li>Network load = {metrics.TotalBytes} bytes</li>
-          <li>p95 latency = {latency.p95} ms</li>
-        </ul>
-      </div>
+      <pre>
+        {JSON.stringify(
+          data.latency,
+          null,
+          2
+        )}
+      </pre>
     </div>
   )
 }
