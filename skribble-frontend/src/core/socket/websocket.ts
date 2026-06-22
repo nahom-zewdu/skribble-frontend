@@ -10,7 +10,27 @@ class GameSocket {
   private ws?: WebSocket
   private drawListeners: Set<DrawListener> = new Set()
   private listeners: Set<Listener> = new Set()
+  private latencyInterval?: number
 
+  // startLatencyProbe initiates a periodic ping to the server to measure latency and keep the connection alive.
+  private startLatencyProbe() {
+    if (this.latencyInterval) {
+      clearInterval(this.latencyInterval)
+    }
+
+    this.latencyInterval = window.setInterval(() => {
+      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return
+
+      this.ws.send(JSON.stringify({
+        type: "ping",
+        data: {
+          ts: Date.now()
+        }
+      }))
+    }, 10000)
+  }
+  
+  // connect establishes a new WebSocket connection to the server with the specified parameters (name, mode, and optional room).
   connect(name: string,
           mode: "public" | "private_create" | "private_join",
           room?: string
@@ -33,6 +53,10 @@ class GameSocket {
     const url = `${WS_BASE}/ws?${params.toString()}`
 
     this.ws = new WebSocket(url)
+
+    this.ws.onopen = () => {
+      this.startLatencyProbe()
+    }
 
     this.ws.onclose = () => {
       console.warn("WebSocket closed")
