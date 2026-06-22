@@ -47,6 +47,7 @@ export type ServerMessage =
   | { type: "draw_move"; data: DrawMoveMessage }
   | { type: "draw_end" }
   | { type: "clear_canvas" }
+  | { type: "pong"; data: { ts: number } }
 
 export type ClientMessage =
   | { type: "chat"; data: { text: string } }
